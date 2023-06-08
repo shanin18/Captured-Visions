@@ -8,7 +8,11 @@ const Navbar = () => {
   const [shadow, setShadow] = useState(false);
 
   const navItems = (
-    <ul className="flex item-center gap-8 font-poppins dark:text-white">
+    <ul
+      className={`${
+        shadow && "text-white"
+      } flex item-center gap-8 font-poppins dark:text-white`}
+    >
       <li onClick={() => setIsActive("home")}>
         <Link to="/" className={isActive === "home" && "text-[#77bef8]"}>
           Home
@@ -65,7 +69,7 @@ const Navbar = () => {
     <nav
       className={`${
         shadow && "shadow-xl fixed w-full"
-      } dark:bg-[#0b111e] py-4 px-8 transition-all duration-300 ease-in-out`}
+      } z-40 dark:bg-[#0b111e] backdrop-blur-md py-4 px-8 transition-all duration-300 ease-in-out`}
     >
       <div className="container mx-auto flex items-center justify-between">
         <div>

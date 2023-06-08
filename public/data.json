@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Picture Perfect: Introduction to Photography",
+    "image": "https://learn.canva.com/wp-content/uploads/2017/11/jay-wennington-624-unsplash.jpg",
+    "instructor": "John Smith",
+    "availableSeats": 10,
+    "enrolled": 3948,
+    "price": "$99"
+  },
+  {
+    "name": "Mastering the Lens: Advanced Photography Techniques",
+    "image": "https://www.all-about-photo.com/images/articles/ART-516-1.jpg",
+    "instructor": "Emily Johnson",
+    "availableSeats": 8,
+    "enrolled": 6782,
+    "price": "$149"
+  },
+  {
+    "name": "Capturing Moments: Documentary Photography",
+    "image": "https://clicklovegrow.com/wp-content/uploads/2021/08/2-charlie-oneill-advanced-graduate-2.jpg",
+    "instructor": "Michael Davis",
+    "availableSeats": 0,
+    "enrolled": 6224,
+    "price": "$129"
+  },
+  {
+    "name": "The Art of Light: Understanding Lighting in Photography",
+    "image": "https://expertphotography.b-cdn.net/wp-content/uploads/2021/08/Lighting.setup_.distance.pixabay.jpg",
+    "instructor": "Sarah Thompson",
+    "availableSeats": 15,
+    "enrolled": 2190,
+    "price": "$89"
+  },
+  {
+    "name": "Creative Composition: Enhancing Visual Impact",
+    "image": "https://images.squarespace-cdn.com/content/v1/56e8694e1d07c0f9fb10f9d9/1530998154873-MB2S7FQ742NJC767LTZI/JAR_1563-2.jpg",
+    "instructor": "David Lee",
+    "availableSeats": 10,
+    "enrolled": 7853,
+    "price": "$109"
+  },
+  {
+    "name": "Beyond Auto Mode: Mastering Manual Settings",
+    "image": "https://i.ytimg.com/vi/tCIUvDq9tXE/maxresdefault.jpg",
+    "instructor": "Rachel Brown",
+    "availableSeats": 0,
+    "enrolled": 3021,
+    "price": "$99"
+  },
+  {
+    "name": "The Power of Post-Processing: Editing and Retouching",
+    "image": "https://i.ytimg.com/vi/0ukMWwKZBJA/maxresdefault.jpg",
+    "instructor": "Matthew Wilson",
+    "availableSeats": 12,
+    "enrolled": 5439,
+    "price": "$119"
+  },
+  {
+    "name": "Exploring Landscape Photography: From Nature to Cityscapes",
+    "image": "https://www.thisiscolossal.com/wp-content/uploads/2014/06/sparth-1.jpg",
+    "instructor": "Jennifer Davis",
+    "availableSeats": 10,
+    "enrolled": 1765,
+    "price": "$99"
+  },
+  {
+    "name": "Portraiture Essentials: Capturing Emotion and Expression",
+    "image": "https://shotkit.com/wp-content/uploads/2020/10/portrait-photography-featured.jpg",
+    "instructor": "Daniel Thompson",
+    "availableSeats": 0,
+    "enrolled": 4806,
+    "price": "$129"
+  },
+  {
+    "name": "The Photographic Journey: Travel and Adventure Photography",
+    "image": "https://mostlylisa.com/wp-content/uploads/2009/12/Gn3HcR_140.jpg",
+    "instructor": "Alex Johnson",
+    "availableSeats": 15,
+    "enrolled": 9852,
+    "price": "$149"
+  }
+]

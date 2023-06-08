@@ -1,5 +1,5 @@
 import React from 'react';
-import DarkMode from '../../../components/DarkMode/DarkMode';
+import DarkMode from '../../components/DarkMode/DarkMode';
 
 const Instructors = () => {
     return (

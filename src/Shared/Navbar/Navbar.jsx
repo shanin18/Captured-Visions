@@ -1,28 +1,20 @@
 import { Link } from "react-router-dom";
 import logo from "../../assets/Images/logo/logo.png";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DarkMode from "../../components/DarkMode/DarkMode";
-import { DarkModeContext } from "../../Context/DarkModeProvider";
 
 const Navbar = () => {
   const [isActive, setIsActive] = useState("home");
-  const { darkMode } = useContext(DarkModeContext);
   const [shadow, setShadow] = useState(false);
 
   const navItems = (
-    <ul className="flex item-center gap-8 font-poppins">
-      <li
-        onClick={() => setIsActive("home")}
-        className={darkMode && "text-white"}
-      >
+    <ul className="flex item-center gap-8 font-poppins dark:text-white">
+      <li onClick={() => setIsActive("home")}>
         <Link to="/" className={isActive === "home" && "text-[#77bef8]"}>
           Home
         </Link>
       </li>
-      <li
-        onClick={() => setIsActive("instructors")}
-        className={darkMode && "text-white"}
-      >
+      <li onClick={() => setIsActive("instructors")}>
         <Link
           to="/instructors"
           className={isActive === "instructors" && "text-[#77bef8]"}
@@ -30,10 +22,7 @@ const Navbar = () => {
           Instructors
         </Link>
       </li>
-      <li
-        onClick={() => setIsActive("classes")}
-        className={darkMode && "text-white"}
-      >
+      <li onClick={() => setIsActive("classes")}>
         <Link
           to="/classes"
           className={isActive === "classes" && "text-[#77bef8]"}
@@ -41,10 +30,7 @@ const Navbar = () => {
           Classes
         </Link>
       </li>
-      <li
-        onClick={() => setIsActive("dashboard")}
-        className={darkMode && "text-white"}
-      >
+      <li onClick={() => setIsActive("dashboard")}>
         <Link
           to="/dashboard"
           className={isActive === "dashboard" && "text-[#77bef8]"}
@@ -52,10 +38,7 @@ const Navbar = () => {
           Dashboard
         </Link>
       </li>
-      <li
-        onClick={() => setIsActive("profile")}
-        className={darkMode && "text-white"}
-      >
+      <li onClick={() => setIsActive("profile")}>
         <Link
           to="/profile"
           className={isActive === "profile" && "text-[#77bef8]"}
@@ -76,16 +59,13 @@ const Navbar = () => {
     };
 
     window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
   }, []);
 
   return (
     <nav
-      className={`${shadow && "shadow-md fixed w-full"} ${
-        darkMode && "bg-[#0b111e]"
-      } py-4 px-8 transition-all duration-500 ease-in-out`}
+      className={`${
+        shadow && "shadow-xl fixed w-full"
+      } dark:bg-[#0b111e] py-4 px-8 transition-all duration-300 ease-in-out`}
     >
       <div className="container mx-auto flex items-center justify-between">
         <div>

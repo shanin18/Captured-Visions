@@ -1,10 +1,10 @@
 import React from "react";
-import DarkMode from "../../../components/DarkMode/DarkMode";
+import Banner from "../Banner/Banner";
 
 const Home = () => {
   return (
-    <div className="">
-      <h1></h1>
+    <div>
+      <Banner></Banner>
     </div>
   );
 };

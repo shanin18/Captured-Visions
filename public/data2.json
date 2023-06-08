@@ -8,8 +8,7 @@
       "Introduction to Photography",
       "Advanced Lighting Techniques",
       "Portrait Photography"
-    ],
-    "students": 7854
+    ]
   },
   {
     "image": "https://images-pw.pixieset.com/elementfield/0276183/IMG_0903-66a6ad26.JPG",
@@ -22,16 +21,14 @@
       "Post-Processing Masterclass",
       "Travel Photography",
       "Studio Lighting"
-    ],
-    "students": 2417
+    ]
   },
   {
     "image": "https://images.squarespace-cdn.com/content/v1/52dfc5e7e4b0c9ff520de896/1564930524062-WX95W4AB8NGJ3P9J97DR/leon1211-Edit.jpg",
     "name": "Michael Davis",
     "email": "michaeldavis@example.com",
     "classesTaken": 2,
-    "classNamesTaken": ["Documentary Photography", "Night Photography"],
-    "students": 9036
+    "classNamesTaken": ["Documentary Photography", "Night Photography"]
   },
   {
     "image": "https://websiteeu.com/wp-content/uploads/2016/05/baba2-1-700x853.jpg",
@@ -43,16 +40,14 @@
       "Macro Photography",
       "Wildlife Photography",
       "Fashion Photography"
-    ],
-    "students": 5182
+    ]
   },
   {
     "image": "https://images.squarespace-cdn.com/content/v1/58c3691c197aea79a9a307f7/1585785979237-XA46SH715VF4YC97H9I2/IMG04_SSP20191007_SOCIAL+MEDIA+FILE.jpg",
     "name": "David Lee",
     "email": "davidlee@example.com",
     "classesTaken": 1,
-    "classNamesTaken": ["Food Photography"],
-    "students": 6437
+    "classNamesTaken": ["Food Photography"]
   },
   {
     "image": "https://static.showit.co/800/fU1coLeQR46QedsbrPL9jw/76966/img_6429.jpg",
@@ -66,19 +61,17 @@
       "Fashion Portraiture",
       "Product Photography",
       "Street Art Photography"
-    ],
-    "students": 4298
+    ]
   },
   {
     "image": "https://www.panpixels.com/wp-content/uploads/nick-lindsey-dance-photography-8-683x1024.jpg",
     "name": "Robert Wilson",
     "email": "robertwilson@example.com",
     "classesTaken": 2,
-    "classNamesTaken": ["Astrophotography", "Underwater Photography"],
-    "students": 2746
+    "classNamesTaken": ["Astrophotography", "Underwater Photography"]
   },
   {
-    "image": "https://images.unsplash.com/photo-1648470407218-da8c40e21774?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE1fHx8ZW58MHx8fHx8&w=1000&q=80",
+    "image": "instructor8.jpg",
     "name": "Sophia Turner",
     "email": "sophiaturner@example.com",
     "classesTaken": 4,
@@ -87,8 +80,7 @@
       "Fine Art Photography",
       "Nature and Wildlife",
       "Fashion Editorial"
-    ],
-    "students": 7815
+    ]
   },
   {
     "image": "https://i.pinimg.com/originals/c9/39/ba/c939ba53d22ede8dd93b3143d9ff7b23.png",
@@ -99,8 +91,7 @@
       "Experimental Photography",
       "Documentary Film Making",
       "Archival Photography"
-    ],
-    "students": 9621
+    ]
   },
   {
     "image": "https://images-pw.pixieset.com/elementfield/32198237/IMG_0906-5dbcbbb3.JPG",
@@ -113,7 +104,6 @@
       "Digital Image Editing",
       "Fashion Styling for Photography",
       "Still Life Photography"
-    ],
-    "students": 5603
+    ]
   }
 ]

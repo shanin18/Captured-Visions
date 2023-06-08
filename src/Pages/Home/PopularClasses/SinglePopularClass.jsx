@@ -14,7 +14,9 @@ const SinglePopularClass = ({ popularClass }) => {
           <h3 className="font-poppins text-white text-2xl font-medium">
             {name}
           </h3>
-          <h4 className="font-poppins text-lg my-3 text-[#77bef8]">By {instructor}</h4>
+          <h4 className="font-poppins text-lg my-3 text-[#77bef8]">
+            By {instructor}
+          </h4>
           <p className="font-poppins text-white text-sm">
             Enrolled by {enrolled} peoples.
           </p>

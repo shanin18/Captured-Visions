@@ -7,7 +7,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 AOS.init();
 
-const SingleInstructorCard = ({ popularInstructor }) => {
+const SinglePopularInstructor = ({ popularInstructor }) => {
   const [fill, setFill] = useState(false);
   const { image, name, students } = popularInstructor;
   useEffect(() => {
@@ -59,4 +59,4 @@ const SingleInstructorCard = ({ popularInstructor }) => {
   );
 };
 
-export default SingleInstructorCard;
+export default SinglePopularInstructor;

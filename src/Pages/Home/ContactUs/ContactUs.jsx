@@ -13,13 +13,12 @@ const ContactUs = () => {
   } = useForm();
   const onSubmit = (data) => console.log(data);
   return (
-    <div
-      data-aos="fade-up"
-      data-aos-anchor-placement="center-bottom"
-      className="container mx-auto"
-    >
+    <div className="container mx-auto">
       <SectionTitle title="Contact Us"></SectionTitle>
-      <div className="flex flex-col md:flex-row gap-10 mt-7 p-10 bg-[#77bef8]">
+      <div
+        data-aos="fade-up"
+        className="flex flex-col md:flex-row gap-10 mt-7 p-4 md:p-10 bg-[#77bef8]"
+      >
         <div className="md:w-[500px] p-8 rounded-md bg-white">
           <h2 className="text-3xl font-poppins text-[#77bef8] mb-6">
             Get In Touch

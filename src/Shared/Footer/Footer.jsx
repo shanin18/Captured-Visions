@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="flex flex-wrap justify-between space-y-3 container mx-auto pt-5 pb-8">
         <div className="w-full mb-4 lg:w-1/4">
           <img src={logo} className="w-24" alt="Captured Visions Logo" />
-          <p className="text-sm text-gray-600 mt-2 font-poppins dark:text-gray-400 space-y-1">
+          <p className="text-sm text-gray-600 mt-2 lg:mt-6 font-poppins dark:text-gray-400 space-y-1">
             Our mission is to inspire and educate aspiring photographers,
             equipping them with the tools and techniques needed to capture and
             express their creative vision.

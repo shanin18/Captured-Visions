@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SingleInstructorCard from "./SingleInstructorCard";
+import SingleInstructorCard from "./SinglePopularInstructor";
 import SectionTitle from "../../../components/SectionTitle";
 
 const PopularInstructors = () => {

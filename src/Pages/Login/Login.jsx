@@ -1,15 +1,13 @@
-import { Button, Divider } from "@mui/material";
-import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import LoginWithSocials from "../../Shared/LoginWithSocials/LoginWithSocials";
+import { useState } from "react";
 import {
   AiOutlineEye,
   AiOutlineEyeInvisible,
   AiOutlineLock,
 } from "react-icons/ai";
 import { BsEnvelopeAt } from "react-icons/bs";
-import { Link } from "react-router-dom";
-
-import google from "../../assets/Images/socials/google.png";
 
 const Login = () => {
   const [hidden, setHidden] = useState(false);
@@ -37,6 +35,7 @@ const Login = () => {
               {/* register your input into the hook by invoking the "register" function */}
               <input
                 type="email"
+                placeholder="Enter your email"
                 className="w-full flex-1 pr-3 py-2 bg-transparent focus:outline-none font-poppins text-sm"
                 {...register("email", { required: true })}
               />
@@ -54,6 +53,7 @@ const Login = () => {
               {/* include validation with required or other standard HTML validation rules */}
               <input
                 type={!hidden && "password"}
+                placeholder="Enter your password"
                 className="w-full flex-1 pr-8 py-2 bg-transparent focus:outline-none font-poppins text-sm"
                 {...register("password", { required: true })}
               />
@@ -79,7 +79,7 @@ const Login = () => {
 
             <input
               variant="contained"
-              className="w-full py-3 rounded-md hover:bg-[#55b3ff] bg-[#77bef8] font-poppins cursor-pointer"
+              className="w-full py-3 rounded-md hover:bg-[#55b3ff] bg-[#77bef8] font-poppins cursor-pointer text-sm"
               type="submit"
               value="Login"
             />
@@ -99,11 +99,7 @@ const Login = () => {
           <div className="w-full border-b "></div>
         </div>
 
-        <div className="flex justify-center mt-5">
-          <button className="shadow-xl dark:shadow-[#77bef8] dark:shadow w-9 h-9 p-2 rounded-full cursor-pointer">
-            <img src={google} className="w-full" alt="icon" />
-          </button>
-        </div>
+        <LoginWithSocials></LoginWithSocials>
       </div>
     </div>
   );

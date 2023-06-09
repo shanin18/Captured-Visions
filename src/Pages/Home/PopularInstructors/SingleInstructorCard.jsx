@@ -1,13 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillHeart, AiOutlineHeart, AiOutlineUser } from "react-icons/ai";
 import { FaFacebookF, FaTwitter, FaYoutube } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const SingleInstructorCard = ({ popularInstructor }) => {
   const [fill, setFill] = useState(false);
   const { image, name, students } = popularInstructor;
+  useEffect(() => {
+    if (fill) {
+      toast.success("Added To Favorite", {
+        position: "top-center",
+        theme:"dark"
+      });
+    }
+  }, [fill]);
 
   return (
-    <div className="overflow-hidden border rounded-md text-center p-4 dark:shadow-lg dark:shadow-[#77bef8]">
+    <div className="overflow-hidden border dark:border-[#77bef8] dark:shadow-[0px_0px_10px] dark:shadow-[#77bef8] rounded-md text-center p-4 ">
       <div className="relative">
         <p className="font-poppins text-xs px-3 py-2 rounded bg-[#77bef8] text-white w-fit absolute ">
           POPULAR

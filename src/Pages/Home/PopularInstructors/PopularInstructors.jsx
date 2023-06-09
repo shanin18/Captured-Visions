@@ -14,7 +14,7 @@ const PopularInstructors = () => {
     <div className="container mx-auto">
       <SectionTitle title="Popular Instructors"></SectionTitle>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-7">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-7">
         {popularInstructors?.map((popularInstructor) => (
           <SingleInstructorCard
             key={popularInstructor._id}

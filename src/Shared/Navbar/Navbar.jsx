@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/Images/logo/logo.png";
 import { useEffect, useState } from "react";
 import DarkMode from "../../components/DarkMode/DarkMode";
+import { Button } from "@mui/material";
+import ButtonOutline from "../../components/Buttons/BtnOutline";
+import BtnOutline from "../../components/Buttons/BtnOutline";
 
 const Navbar = () => {
   const [isActive, setIsActive] = useState("home");
@@ -9,7 +12,7 @@ const Navbar = () => {
 
   const navItems = (
     <ul
-      className={`flex item-center gap-8 font-poppins dark:text-white`}
+      className={`flex items-center gap-8 font-poppins dark:text-white`}
     >
       <li onClick={() => setIsActive("home")}>
         <Link to="/" className={isActive === "home" && "text-[#77bef8]"}>
@@ -42,10 +45,10 @@ const Navbar = () => {
       </li>
       <li onClick={() => setIsActive("profile")}>
         <Link
-          to="/profile"
+          to="/login"
           className={isActive === "profile" && "text-[#77bef8]"}
         >
-          User profile
+          <BtnOutline text="Login"></BtnOutline>
         </Link>
       </li>
     </ul>
@@ -67,7 +70,7 @@ const Navbar = () => {
     <nav
       className={`${
         shadow && "shadow-xl fixed w-full"
-      } z-40 dark:bg-[#0b111e] bg-white py-4 px-8 transition-all duration-300 ease-in-out`}
+      } z-40 dark:bg-[#0b111e] bg-white py-4 px-8 transition-all duration-300 ease-in-out border-b dark:border-0`}
     >
       <div className="container mx-auto flex items-center justify-between">
         <div>

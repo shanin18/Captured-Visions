@@ -30,18 +30,21 @@ const SingleInstructor = ({ instructor, handleOpen, instructorInfo }) => {
         <img
           onClick={() => handleOpen(instructor._id, setOpen)}
           src={instructor.image}
-          className="w-full h-[350px] cursor-pointer"
+          className="w-full md:h-[350px] cursor-pointer"
           alt="instructor image"
         />
       </div>
+
+      {/* modal here to see the instructors details */}
       <Modal
         open={open}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
+        {/* modal content box */}
         <Box
           sx={style}
-          className="bg-[#0b111e] rounded-md w-full mx-2 md:mx-0 md:w-[450px]"
+          className="bg-[#0b111e] rounded-md md:w-[450px]"
         >
           <div className="flex items-center justify-end py-2 px-3">
             <h2 className="font-poppins text-white capitalize flex-1 text-center">
@@ -55,8 +58,8 @@ const SingleInstructor = ({ instructor, handleOpen, instructorInfo }) => {
             </button>
           </div>
 
-          <div className="flex px-8 py-4">
-            <div className="w-2/3 space-y-2">
+          <div className="flex flex-col-reverse md:flex-row px-8 py-4">
+            <div className="md:w-2/3 mt-3 md:mt-0 space-y-2">
               <p className="text-white font-poppins capitalize text-sm">
                 Email: {email}
               </p>

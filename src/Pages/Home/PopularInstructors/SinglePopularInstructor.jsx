@@ -20,7 +20,7 @@ const SinglePopularInstructor = ({ popularInstructor }) => {
   }, [fill]);
 
   return (
-    <div data-aos="fade-right" className="overflow-hidden border dark:border-[#77bef8] hover:shadow-md ease-in-out duration-300 dark:hover:shadow-[#77bef8] rounded-md text-center p-4 ">
+    <div data-aos="fade-right" className="overflow-hidden border dark:border-[#77bef8] hover:shadow-md dark:hover:shadow-[#77bef8] rounded-md text-center p-4 ">
       <div className="relative">
         <p className="font-poppins text-xs px-3 py-2 rounded bg-[#77bef8] text-white w-fit absolute ">
           POPULAR

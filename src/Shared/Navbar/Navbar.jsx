@@ -9,9 +9,7 @@ const Navbar = () => {
 
   const navItems = (
     <ul
-      className={`${
-        shadow && "text-white"
-      } flex item-center gap-8 font-poppins dark:text-white`}
+      className={`flex item-center gap-8 font-poppins dark:text-white`}
     >
       <li onClick={() => setIsActive("home")}>
         <Link to="/" className={isActive === "home" && "text-[#77bef8]"}>

@@ -3,7 +3,7 @@ import LazyLoad from "react-lazy-load";
 
 const SinglePopularClass = ({ popularClass }) => {
   const { image, name, instructor, enrolled } = popularClass;
-  
+
   return (
     <div className="relative rounded overflow-hidden">
       <LazyLoad>

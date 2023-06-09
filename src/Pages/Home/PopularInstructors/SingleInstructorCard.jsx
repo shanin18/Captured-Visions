@@ -3,6 +3,10 @@ import { AiFillHeart, AiOutlineHeart, AiOutlineUser } from "react-icons/ai";
 import { FaFacebookF, FaTwitter, FaYoutube } from "react-icons/fa";
 import { toast } from "react-toastify";
 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+AOS.init();
+
 const SingleInstructorCard = ({ popularInstructor }) => {
   const [fill, setFill] = useState(false);
   const { image, name, students } = popularInstructor;
@@ -16,7 +20,7 @@ const SingleInstructorCard = ({ popularInstructor }) => {
   }, [fill]);
 
   return (
-    <div className="overflow-hidden border dark:border-[#77bef8] dark:shadow-[0px_0px_10px] dark:shadow-[#77bef8] rounded-md text-center p-4 ">
+    <div data-aos="fade-right" className="overflow-hidden border dark:border-[#77bef8] hover:shadow-md ease-in-out duration-300 dark:hover:shadow-[#77bef8] rounded-md text-center p-4 ">
       <div className="relative">
         <p className="font-poppins text-xs px-3 py-2 rounded bg-[#77bef8] text-white w-fit absolute ">
           POPULAR

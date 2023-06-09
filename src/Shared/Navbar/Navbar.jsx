@@ -67,7 +67,7 @@ const Navbar = () => {
     <nav
       className={`${
         shadow && "shadow-xl fixed w-full"
-      } z-40 dark:bg-[#0b111e] backdrop-blur-md py-4 px-8 transition-all duration-300 ease-in-out`}
+      } z-40 dark:bg-[#0b111e] bg-white py-4 px-8 transition-all duration-300 ease-in-out`}
     >
       <div className="container mx-auto flex items-center justify-between">
         <div>

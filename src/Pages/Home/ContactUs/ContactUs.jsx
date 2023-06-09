@@ -1,6 +1,10 @@
 import { useForm } from "react-hook-form";
 import SectionTitle from "../../../components/SectionTitle";
 
+import AOS from "aos";
+import "aos/dist/aos.css";
+AOS.init();
+
 const ContactUs = () => {
   const {
     register,
@@ -9,7 +13,11 @@ const ContactUs = () => {
   } = useForm();
   const onSubmit = (data) => console.log(data);
   return (
-    <div className="container mx-auto">
+    <div
+      data-aos="fade-up"
+      data-aos-anchor-placement="center-bottom"
+      className="container mx-auto"
+    >
       <SectionTitle title="Contact Us"></SectionTitle>
       <div className="flex flex-col md:flex-row gap-10 mt-7 p-10 bg-[#77bef8]">
         <div className="md:w-[500px] p-8 rounded-md bg-white">
@@ -38,7 +46,7 @@ const ContactUs = () => {
 
             <input
               mt-2
-              className="w-full bg-[#77bef8] text-white font-poppins px-5 py-3 rounded"
+              className="w-full bg-[#77bef8] text-white font-poppins px-5 py-3 rounded hover:bg-[#4caeff] cursor-pointer"
               type="submit"
             />
           </form>

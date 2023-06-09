@@ -4,13 +4,20 @@ import SingleInstructor from "./SingleInstructor";
 
 const Instructors = () => {
   const [allInstructors, setAllInstructors] = useState([]);
+  const [instructorInfo, setInstructorInfo] = useState([]);
+
 
   useEffect(() => {
     fetch("http://localhost:5000/allInstructors")
       .then((res) => res.json())
       .then((data) => setAllInstructors(data));
   }, []);
-  console.log(allInstructors);
+
+  const handleOpen = (id, setOpen) =>{
+    setOpen(true)
+    const instructor = allInstructors?.find(person => person._id === id)
+    setInstructorInfo(instructor)
+  };
 
   return (
     <div className="container mx-auto py-16">
@@ -20,6 +27,9 @@ const Instructors = () => {
           <SingleInstructor
             key={instructor._id}
             instructor={instructor}
+            handleOpen={handleOpen}
+            instructorInfo={instructorInfo}
+            open={open}
           ></SingleInstructor>
         ))}
       </div>

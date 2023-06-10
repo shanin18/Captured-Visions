@@ -11,11 +11,10 @@ const Classes = () => {
       .then((data) => setAllClasses(data));
   }, []);
 
-  console.log(allClasses);
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto py-20">
       <SectionTitle title="All Classes"></SectionTitle>
-      <div className="flex flex-wrap justify-center gap-5">
+      <div className="flex flex-wrap justify-center gap-5 mx-2">
         {
             allClasses?.map(item => <SingleClass key={item._id} item={item}></SingleClass>)
         }

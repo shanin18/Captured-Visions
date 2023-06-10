@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SectionTitle from "../../components/SectionTitle";
 import SingleInstructor from "./SingleInstructor";
+import Spinner from "../../components/Spinner";
 
 const Instructors = () => {
   const [allInstructors, setAllInstructors] = useState([]);
@@ -9,7 +10,9 @@ const Instructors = () => {
   useEffect(() => {
     fetch("http://localhost:5000/allInstructors")
       .then((res) => res.json())
-      .then((data) => setAllInstructors(data));
+      .then((data) => {
+        setAllInstructors(data);
+      });
   }, []);
 
   const handleOpen = (id, setOpen) => {
@@ -21,7 +24,7 @@ const Instructors = () => {
   return (
     <div className="container mx-auto py-16">
       <SectionTitle title="meet our instructors"></SectionTitle>
-      <div className="grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mt-7 mx-2">
+      <div className="flex flex-wrap justify-center gap-5 mx-2">
         {allInstructors?.map((instructor) => (
           <SingleInstructor
             key={instructor._id}

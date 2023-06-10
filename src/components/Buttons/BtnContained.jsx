@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import React from "react";
 
-const BtnContained = ({ text }) => {
+const BtnContained = ({ text}) => {
   const contained = {
     backgroundColor: "#77bef8",
     fontFamily: "poppins",

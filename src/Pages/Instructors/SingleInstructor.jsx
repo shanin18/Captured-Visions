@@ -20,17 +20,16 @@ const SingleInstructor = ({ instructor, handleOpen, instructorInfo }) => {
   const { name, image, email, classesTaken, classNamesTaken } = instructorInfo;
 
   const handleClose = () => {
-    console.log("hello");
     setOpen(false);
   };
 
   return (
-    <>
-      <div className="rounded-tl-3xl hover:shadow-lg duration-300 ease-in-out dark:shadow-[#77bef8] rounded-br-3xl dark:border border-[#77bef8] overflow-hidden">
+    <div data-aos="fade-up" className=" overflow-hidden">
+      <div className=" rounded-tl-3xl hover:shadow-lg duration-300 ease-in-out dark:shadow-[#77bef8] rounded-br-3xl dark:border border-[#77bef8] overflow-hidden">
         <img
           onClick={() => handleOpen(instructor._id, setOpen)}
           src={instructor.image}
-          className="w-full md:h-[350px] cursor-pointer"
+          className="w-[250px] h-[330px] cursor-pointer"
           alt="instructor image"
         />
       </div>
@@ -96,7 +95,7 @@ const SingleInstructor = ({ instructor, handleOpen, instructorInfo }) => {
           </div>
         </Box>
       </Modal>
-    </>
+    </div>
   );
 };
 

@@ -1,26 +1,32 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/Images/logo/logo.png";
 import { Fragment, useContext, useEffect, useState } from "react";
 import DarkMode from "../../components/DarkMode/DarkMode";
 import BtnOutline from "../../components/Buttons/BtnOutline";
 import { AuthContext } from "../../Context/AuthProvider";
-import img from "../../assets/Images/logo/logo.png"
 import {
   Avatar,
+  Badge,
   Box,
   IconButton,
-  ListItemIcon,
   Menu,
   MenuItem,
   Tooltip,
-  Typography,
 } from "@mui/material";
-import { AiOutlineLogout } from "react-icons/ai";
+import { MdLogout } from "react-icons/md";
+import { HiBars3, HiXMark } from "react-icons/hi2";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 const Navbar = () => {
-  const [isActive, setIsActive] = useState("home");
+  const [isActive, setIsActive] = useState("");
+  const [fold, setFold] = useState(false);
   const [shadow, setShadow] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    setIsActive(location.pathname.split("/")[1]);
+  }, [location]);
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -40,12 +46,12 @@ const Navbar = () => {
 
   const navItems = (
     <ul className={`flex items-center gap-8 font-poppins dark:text-white`}>
-      <li onClick={() => setIsActive("home")}>
-        <Link to="/" className={isActive === "home" && "text-[#77bef8]"}>
+      <li>
+        <Link to="/" className={isActive === "" && "text-[#77bef8]"}>
           Home
         </Link>
       </li>
-      <li onClick={() => setIsActive("instructors")}>
+      <li>
         <Link
           to="/instructors"
           className={isActive === "instructors" && "text-[#77bef8]"}
@@ -53,7 +59,7 @@ const Navbar = () => {
           Instructors
         </Link>
       </li>
-      <li onClick={() => setIsActive("classes")}>
+      <li>
         <Link
           to="/classes"
           className={isActive === "classes" && "text-[#77bef8]"}
@@ -61,12 +67,13 @@ const Navbar = () => {
           Classes
         </Link>
       </li>
-      <li onClick={() => setIsActive("dashboard")}>
-        <Link
-          to="/dashboard"
-          className={isActive === "dashboard" && "text-[#77bef8]"}
-        >
-          Dashboard
+      <li>
+        <Link to="/dashboard/selectedClasses">
+          <IconButton aria-label="cart">
+            <Badge badgeContent={4} color="secondary">
+              <AiOutlineShoppingCart className="dark:text-white text-xl" />
+            </Badge>
+          </IconButton>
         </Link>
       </li>
       <li>
@@ -79,20 +86,22 @@ const Navbar = () => {
                 textAlign: "center",
               }}
             >
-              {/* <Tooltip title="Account settings"> */}
-                <IconButton
-                  onClick={handleClick}
-                  size="small"
-                  sx={{ ml: 2 }}
-                  aria-controls={open ? "account-menu" : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? "true" : undefined}
-                >
-                  <Tooltip title={user?.displayName}>
-
-                    <Avatar className="dark:border-2 border-green-400" alt="Remy Sharp" src={user?.photoURL} />
-                  </Tooltip>
-                </IconButton>
+              {/* <Tooltip title="User name"> */}
+              <IconButton
+                onClick={handleClick}
+                size="small"
+                sx={{ ml: 2 }}
+                aria-controls={open ? "account-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+              >
+                <Tooltip title={user?.displayName}>
+                  <Avatar
+                    className="dark:border-2 border-green-400"
+                    src={user?.photoURL}
+                  />
+                </Tooltip>
+              </IconButton>
               {/* </Tooltip> */}
             </Box>
             <Menu
@@ -132,7 +141,7 @@ const Navbar = () => {
               anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             >
               <MenuItem className="font-poppins" onClick={handleLogOut}>
-                Logout
+                <MdLogout className="mr-2"></MdLogout> Logout
               </MenuItem>
             </Menu>
           </Fragment>
@@ -169,7 +178,128 @@ const Navbar = () => {
             <img className="w-28" src={logo} alt="logo" />
           </Link>
         </div>
-        <div>{navItems}</div>
+        {/* desktop view menu */}
+        <div className="hidden lg:block">{navItems}</div>
+
+        {/* mobile view menu */}
+        <div onClick={() => setFold(!fold)} className="lg:hidden order-3">
+          {!fold ? (
+            <HiBars3 className="text-2xl dark:text-white"></HiBars3>
+          ) : (
+            <HiXMark className="text-2xl dark:text-white"></HiXMark>
+          )}
+        </div>
+        <ul
+          className={`flex flex-col lg:hidden h-[calc(100vh-80px)] z-30 py-10 absolute top-[80px] dark:bg-[#0b111e] bg-white w-[280px] transition-all duration-300 ease-in-out left-0 ${
+            !fold && " left-[-400px]"
+          } items-center gap-8 font-poppins dark:text-white`}
+        >
+          <li onClick={() => setFold(!fold)}>
+            <Link to="/" className={isActive === "" && "text-[#77bef8]"}>
+              Home
+            </Link>
+          </li>
+          <li onClick={() => setFold(!fold)}>
+            <Link
+              to="/instructors"
+              className={isActive === "instructors" && "text-[#77bef8]"}
+            >
+              Instructors
+            </Link>
+          </li>
+          <li onClick={() => setFold(!fold)}>
+            <Link
+              to="/classes"
+              className={isActive === "classes" && "text-[#77bef8]"}
+            >
+              Classes
+            </Link>
+          </li>
+          <li onClick={() => setFold(!fold)}>
+            <Link
+              to="/dashboard"
+              className={isActive === "dashboard" && "text-[#77bef8]"}
+            >
+              Dashboard
+            </Link>
+          </li>
+          <li>
+            {user ? (
+              <Fragment>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    textAlign: "center",
+                  }}
+                >
+                  {/* <Tooltip title="User name"> */}
+                  <IconButton
+                    onClick={handleClick}
+                    size="small"
+                    sx={{ ml: 2 }}
+                    aria-controls={open ? "account-menu" : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? "true" : undefined}
+                  >
+                    <Tooltip title={user?.displayName}>
+                      <Avatar
+                        className="dark:border-2 border-green-400"
+                        src={user?.photoURL}
+                      />
+                    </Tooltip>
+                  </IconButton>
+                  {/* </Tooltip> */}
+                </Box>
+                <Menu
+                  anchorEl={anchorEl}
+                  id="account-menu"
+                  open={open}
+                  onClose={handleClose}
+                  onClick={handleClose}
+                  PaperProps={{
+                    elevation: 0,
+                    sx: {
+                      overflow: "visible",
+                      mt: 1.5,
+                      bgcolor: "gray",
+                      color: "white",
+                      "& .MuiAvatar-root": {
+                        width: 32,
+                        height: 32,
+                        ml: -0.5,
+                        mr: 1,
+                      },
+                      "&:before": {
+                        content: '""',
+                        display: "block",
+                        position: "absolute",
+                        top: 0,
+                        right: 14,
+                        width: 10,
+                        height: 10,
+                        bgcolor: "gray",
+                        transform: "translateY(-50%) rotate(45deg)",
+                        zIndex: 0,
+                      },
+                    },
+                  }}
+                  transformOrigin={{ horizontal: "right", vertical: "top" }}
+                  anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                >
+                  <MenuItem className="font-poppins" onClick={handleLogOut}>
+                    <MdLogout className="mr-2"></MdLogout> Logout
+                  </MenuItem>
+                </Menu>
+              </Fragment>
+            ) : (
+              <Link to="/login">
+                <BtnOutline text="Login"></BtnOutline>
+              </Link>
+            )}
+          </li>
+        </ul>
+
         <div>
           <DarkMode></DarkMode>
         </div>

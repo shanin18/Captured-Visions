@@ -1,24 +1,42 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import LoginWithSocials from "../../Shared/LoginWithSocials/LoginWithSocials";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   AiOutlineEye,
   AiOutlineEyeInvisible,
   AiOutlineLock,
 } from "react-icons/ai";
 import { BsEnvelopeAt } from "react-icons/bs";
+import { AuthContext } from "../../Context/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [hidden, setHidden] = useState(false);
-
+  const [error, setError] = useState("");
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+
+  const { loginUser } = useContext(AuthContext);
+  const onSubmit = (data) => {
+    setError("");
+    loginUser(data.email, data.password)
+      .then((res) => {
+        reset();
+        Swal.fire({
+          position: "top",
+          icon: "success",
+          title: "Login successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((err) => setError(err.message));
+  };
 
   return (
     <div div className="container mx-auto flex justify-center py-24">
@@ -26,8 +44,10 @@ const Login = () => {
         <h2 className="font-poppins text-3xl font-semibold text-center dark:text-white mb-10">
           Login
         </h2>
+
         <form className="w-[400px] mb-1" onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-5 dark:text-white">
+            {/* email field */}
             <div className="flex dark:bg-[#171719] dark:border-[#77bef8] border rounded-md">
               <div className="w-12 h-12 rounded-l-md flex items-center justify-center">
                 <BsEnvelopeAt className="text-lg"></BsEnvelopeAt>
@@ -46,6 +66,7 @@ const Login = () => {
               </small>
             )}
 
+            {/* password field */}
             <div className="flex relative dark:bg-[#171719] dark:border-[#77bef8] border rounded-md">
               <div className="w-12 h-12 rounded-l-md flex items-center justify-center">
                 <AiOutlineLock className="text-lg"></AiOutlineLock>
@@ -71,9 +92,13 @@ const Login = () => {
             </div>
 
             {/* errors will return when field validation fails  */}
-            {errors.password && (
+            {errors.password ? (
               <small className="text-red-600 font-poppins text-xs">
                 Password is required!
+              </small>
+            ) : (
+              <small className="text-red-600 font-poppins text-xs">
+                {error}
               </small>
             )}
 

@@ -12,6 +12,7 @@ import { HiOutlinePhoto } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 import LoginWithSocials from "../../Shared/LoginWithSocials/LoginWithSocials";
 import { AuthContext } from "../../Context/AuthProvider";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
   const [passHidden, setPassHidden] = useState(false);
@@ -25,13 +26,28 @@ const SignUp = () => {
     reset,
   } = useForm();
 
-  const {createUser} = useContext(AuthContext);
-  const onSubmit = (data) =>{
+  const { createUser, updateUser } = useContext(AuthContext);
+
+
+  const onSubmit = (data) => {
+    console.log(data);
     createUser(data.email, data.password)
-    .then(result =>{
-      const user = result.user;
-    })
-    .catch(err => console.log(err.message))
+      .then((result) => {
+        const user = result.user;
+        updateUser(user, data.name, data.photo)
+          .then(() => {
+            reset();
+            Swal.fire({
+              position: "top",
+              icon: "success",
+              title: "Account created successfully",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err.message));
   };
 
   return (

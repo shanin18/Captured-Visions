@@ -1,19 +1,46 @@
 import { Link } from "react-router-dom";
 import logo from "../../assets/Images/logo/logo.png";
-import { useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import DarkMode from "../../components/DarkMode/DarkMode";
-import { Button } from "@mui/material";
-import ButtonOutline from "../../components/Buttons/BtnOutline";
 import BtnOutline from "../../components/Buttons/BtnOutline";
+import { AuthContext } from "../../Context/AuthProvider";
+import img from "../../assets/Images/logo/logo.png"
+import {
+  Avatar,
+  Box,
+  IconButton,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import { AiOutlineLogout } from "react-icons/ai";
 
 const Navbar = () => {
   const [isActive, setIsActive] = useState("home");
   const [shadow, setShadow] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const { user, logOut } = useContext(AuthContext);
+  console.log(user)
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((err) => console.log(err));
+  };
 
   const navItems = (
-    <ul
-      className={`flex items-center gap-8 font-poppins dark:text-white`}
-    >
+    <ul className={`flex items-center gap-8 font-poppins dark:text-white`}>
       <li onClick={() => setIsActive("home")}>
         <Link to="/" className={isActive === "home" && "text-[#77bef8]"}>
           Home
@@ -43,13 +70,77 @@ const Navbar = () => {
           Dashboard
         </Link>
       </li>
-      <li onClick={() => setIsActive("profile")}>
-        <Link
-          to="/login"
-          className={isActive === "profile" && "text-[#77bef8]"}
-        >
-          <BtnOutline text="Login"></BtnOutline>
-        </Link>
+      <li>
+        {user ? (
+          <Fragment>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                textAlign: "center",
+              }}
+            >
+              {/* <Tooltip title="Account settings"> */}
+                <IconButton
+                  onClick={handleClick}
+                  size="small"
+                  sx={{ ml: 2 }}
+                  aria-controls={open ? "account-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                >
+                  <Tooltip title={user?.displayName}>
+                    <Avatar alt="Remy Sharp" src={user?.photoURL} />
+                  </Tooltip>
+                </IconButton>
+              {/* </Tooltip> */}
+            </Box>
+            <Menu
+              anchorEl={anchorEl}
+              id="account-menu"
+              open={open}
+              onClose={handleClose}
+              onClick={handleClose}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: "visible",
+                  mt: 1.5,
+                  bgcolor: "gray",
+                  color: "white",
+                  "& .MuiAvatar-root": {
+                    width: 32,
+                    height: 32,
+                    ml: -0.5,
+                    mr: 1,
+                  },
+                  "&:before": {
+                    content: '""',
+                    display: "block",
+                    position: "absolute",
+                    top: 0,
+                    right: 14,
+                    width: 10,
+                    height: 10,
+                    bgcolor: "gray",
+                    transform: "translateY(-50%) rotate(45deg)",
+                    zIndex: 0,
+                  },
+                },
+              }}
+              transformOrigin={{ horizontal: "right", vertical: "top" }}
+              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+            >
+              <MenuItem className="font-poppins" onClick={handleLogOut}>
+                Logout
+              </MenuItem>
+            </Menu>
+          </Fragment>
+        ) : (
+          <Link to="/login">
+            <BtnOutline text="Login"></BtnOutline>
+          </Link>
+        )}
       </li>
     </ul>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import useMyClasses from "../../Hooks/useMYClasses";
 import SectionTitle from "../../components/SectionTitle";
 import {
-    IconButton,
+  IconButton,
   Paper,
   Table,
   TableBody,
@@ -14,6 +14,8 @@ import {
 } from "@mui/material";
 import styled from "styled-components";
 import { BsTrash3 } from "react-icons/bs";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -30,7 +32,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontFamily: "poppins",
     paddingTop: 10,
     paddingBottom: 10,
-    
   },
 }));
 
@@ -49,6 +50,34 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const SelectedClasses = () => {
   const [refetch, myClasses] = useMyClasses();
+
+  const handleClassDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Class will be deleted permanently!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:5000/selectedClasses/${id}`)
+          .then((data) => {
+            if (data.data.deletedCount > 0) {
+              refetch();
+              Swal.fire(
+                "Deleted!",
+                "Class has been deleted successfully",
+                "success"
+              );
+            }
+          })
+          .catch((err) => console.log(err.message));
+      }
+    });
+  };
 
   return (
     <div>
@@ -76,7 +105,10 @@ const SelectedClasses = () => {
                   <StyledTableCell>{item.price}</StyledTableCell>
                   <StyledTableCell>
                     <IconButton aria-label="delete" size="small">
-                      <BsTrash3 className="text-red-600"></BsTrash3>
+                      <BsTrash3
+                        onClick={() => handleClassDelete(item._id)}
+                        className="text-red-600"
+                      ></BsTrash3>
                     </IconButton>
                   </StyledTableCell>
                 </StyledTableRow>

@@ -17,6 +17,7 @@ import { SiGoogleclassroom } from "react-icons/si";
 import { GiConfirmed } from "react-icons/gi";
 import { Link, Outlet } from "react-router-dom";
 import image from "../assets/Images/logo/logo.png";
+import shadows from "@mui/material/styles/shadows";
 
 const drawerWidth = 260;
 
@@ -79,7 +80,7 @@ const Dashboard = (props) => {
             Classes
           </ListItemButton>
         </Link>
-        
+
       </List>
     </div>
   );
@@ -89,7 +90,6 @@ const Dashboard = (props) => {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <CssBaseline />
       <AppBar
         position="fixed"
         sx={{
@@ -97,7 +97,7 @@ const Dashboard = (props) => {
           ml: { sm: `${drawerWidth}px` },
         }}
       >
-        <Toolbar>
+        <Toolbar className="flex justify-betwee ">
           <IconButton
             color="inherit"
             aria-label="open drawer"

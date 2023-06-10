@@ -31,7 +31,6 @@ const Navbar = () => {
   };
 
   const { user, logOut } = useContext(AuthContext);
-  console.log(user)
 
   const handleLogOut = () => {
     logOut()
@@ -90,7 +89,8 @@ const Navbar = () => {
                   aria-expanded={open ? "true" : undefined}
                 >
                   <Tooltip title={user?.displayName}>
-                    <Avatar alt="Remy Sharp" src={user?.photoURL} />
+
+                    <Avatar className="dark:border-2 border-green-400" alt="Remy Sharp" src={user?.photoURL} />
                   </Tooltip>
                 </IconButton>
               {/* </Tooltip> */}

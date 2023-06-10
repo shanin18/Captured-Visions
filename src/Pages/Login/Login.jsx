@@ -39,7 +39,7 @@ const Login = () => {
   };
 
   return (
-    <div div className="container mx-auto flex justify-center py-24">
+    <div div className="container mx-auto flex justify-center pt-24 pb-40">
       <div className="border dark:border-none p-10 dark:bg-[#0c0c0c] rounded-xl">
         <h2 className="font-poppins text-3xl font-semibold text-center dark:text-white mb-10">
           Login

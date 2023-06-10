@@ -27,8 +27,8 @@ const Login = () => {
           Login
         </h2>
         <form className="w-[400px] mb-1" onSubmit={handleSubmit(onSubmit)}>
-          <div className="space-y-5 text-white">
-            <div className="flex bg-[#171719] dark:border-[#77bef8] border rounded-md">
+          <div className="space-y-5 dark:text-white">
+            <div className="flex dark:bg-[#171719] dark:border-[#77bef8] border rounded-md">
               <div className="w-12 h-12 rounded-l-md flex items-center justify-center">
                 <BsEnvelopeAt className="text-lg"></BsEnvelopeAt>
               </div>
@@ -42,11 +42,11 @@ const Login = () => {
             </div>
             {errors.email && (
               <small className="text-red-600 font-poppins">
-                This field is required
+                Email is required
               </small>
             )}
 
-            <div className="flex relative bg-[#171719] dark:border-[#77bef8] border rounded-md">
+            <div className="flex relative dark:bg-[#171719] dark:border-[#77bef8] border rounded-md">
               <div className="w-12 h-12 rounded-l-md flex items-center justify-center">
                 <AiOutlineLock className="text-lg"></AiOutlineLock>
               </div>
@@ -73,7 +73,7 @@ const Login = () => {
             {/* errors will return when field validation fails  */}
             {errors.password && (
               <small className="text-red-600 font-poppins text-xs">
-                This field is required!
+                Password is required!
               </small>
             )}
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
@@ -11,9 +11,11 @@ import { BsEnvelopeAt } from "react-icons/bs";
 import { HiOutlinePhoto } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 import LoginWithSocials from "../../Shared/LoginWithSocials/LoginWithSocials";
+import { AuthContext } from "../../Context/AuthProvider";
 
 const SignUp = () => {
-  const [hidden, setHidden] = useState(false);
+  const [passHidden, setPassHidden] = useState(false);
+  const [confPassHidden, setConfPassHidden] = useState(false);
 
   const {
     register,
@@ -22,7 +24,15 @@ const SignUp = () => {
     watch,
     reset,
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+
+  const {createUser} = useContext(AuthContext);
+  const onSubmit = (data) =>{
+    createUser(data.email, data.password)
+    .then(result =>{
+      const user = result.user;
+    })
+    .catch(err => console.log(err.message))
+  };
 
   return (
     <div>
@@ -32,8 +42,8 @@ const SignUp = () => {
             Sign up
           </h2>
           <form className="w-[400px] mb-1" onSubmit={handleSubmit(onSubmit)}>
-            <div className="space-y-5 text-white">
-              <div className="flex bg-[#171719] dark:border-[#77bef8] border rounded-md">
+            <div className="space-y-5 dark:text-white">
+              <div className="flex dark:bg-[#171719] dark:border-[#77bef8] border rounded-md">
                 <div className="w-12 h-12 rounded-l-md flex items-center justify-center">
                   <AiOutlineUser className="text-lg"></AiOutlineUser>
                 </div>
@@ -51,7 +61,7 @@ const SignUp = () => {
                   Name is required
                 </small>
               )}
-              <div className="flex bg-[#171719] dark:border-[#77bef8] border rounded-md">
+              <div className="flex dark:bg-[#171719] dark:border-[#77bef8] border rounded-md">
                 <div className="w-12 h-12 rounded-l-md flex items-center justify-center">
                   <BsEnvelopeAt className="text-lg"></BsEnvelopeAt>
                 </div>
@@ -70,14 +80,14 @@ const SignUp = () => {
                 </small>
               )}
 
-              <div className="flex relative bg-[#171719] dark:border-[#77bef8] border rounded-md">
+              <div className="flex relative dark:bg-[#171719] dark:border-[#77bef8] border rounded-md">
                 <div className="w-12 h-12 rounded-l-md flex items-center justify-center">
                   <AiOutlineLock className="text-lg"></AiOutlineLock>
                 </div>
 
                 {/* include validation with required or other standard HTML validation rules */}
                 <input
-                  type={!hidden && "password"}
+                  type={!passHidden && "password"}
                   name="password"
                   placeholder="Enter your password"
                   className="w-full flex-1 pr-8 py-2 bg-transparent focus:outline-none font-poppins text-sm"
@@ -97,9 +107,9 @@ const SignUp = () => {
 
                 <div
                   className="absolute  right-2 top-3"
-                  onClick={() => setHidden(!hidden)}
+                  onClick={() => setPassHidden(!passHidden)}
                 >
-                  {!hidden ? (
+                  {!passHidden ? (
                     <AiOutlineEye className="text-xl cursor-pointer"></AiOutlineEye>
                   ) : (
                     <AiOutlineEyeInvisible className="text-xl cursor-pointer"></AiOutlineEyeInvisible>
@@ -113,13 +123,13 @@ const SignUp = () => {
                   {errors.password?.message}
                 </small>
               )}
-              <div className="flex relative bg-[#171719] dark:border-[#77bef8] border rounded-md">
+              <div className="flex relative dark:bg-[#171719] dark:border-[#77bef8] border rounded-md">
                 <div className="w-12 h-12 rounded-l-md flex items-center justify-center">
                   <AiOutlineLock className="text-lg"></AiOutlineLock>
                 </div>
                 {/* include validation with required or other standard HTML validation rules */}
                 <input
-                  type={!hidden && "password"}
+                  type={!confPassHidden && "password"}
                   name="cPassword"
                   placeholder="Enter confirm password"
                   className="w-full flex-1 pr-8 py-2 bg-transparent focus:outline-none font-poppins text-sm"
@@ -135,9 +145,9 @@ const SignUp = () => {
 
                 <div
                   className="absolute  right-2 top-3"
-                  onClick={() => setHidden(!hidden)}
+                  onClick={() => setConfPassHidden(!confPassHidden)}
                 >
-                  {!hidden ? (
+                  {!confPassHidden ? (
                     <AiOutlineEye className="text-xl cursor-pointer"></AiOutlineEye>
                   ) : (
                     <AiOutlineEyeInvisible className="text-xl cursor-pointer"></AiOutlineEyeInvisible>
@@ -152,7 +162,7 @@ const SignUp = () => {
                 </small>
               )}
 
-              <div className="flex bg-[#171719] dark:border-[#77bef8] border rounded-md">
+              <div className="flex dark:bg-[#171719] dark:border-[#77bef8] border rounded-md">
                 <div className="w-12 h-12 rounded-l-md flex items-center justify-center">
                   <HiOutlinePhoto className="text-lg"></HiOutlinePhoto>
                 </div>

@@ -21,7 +21,7 @@ const Error = () => {
           Page Not Found
         </h1>
         <p className="text-xl font-poppins mt-5 mb-3 text-white">
-          {error.message}
+          {error?.message}
         </p>
         <Link
           to="/"

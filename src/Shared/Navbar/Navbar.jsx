@@ -16,6 +16,7 @@ import {
 import { MdLogout } from "react-icons/md";
 import { HiBars3, HiXMark } from "react-icons/hi2";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import useMyClasses from "../../Hooks/useMYClasses";
 
 const Navbar = () => {
   const [isActive, setIsActive] = useState("");
@@ -23,6 +24,8 @@ const Navbar = () => {
   const [shadow, setShadow] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const location = useLocation();
+
+  const [, myClasses] = useMyClasses()
 
   useEffect(() => {
     setIsActive(location.pathname.split("/")[1]);
@@ -70,7 +73,7 @@ const Navbar = () => {
       <li>
         <Link to="/dashboard/selectedClasses">
           <IconButton aria-label="cart">
-            <Badge badgeContent={4} color="secondary">
+            <Badge badgeContent={myClasses?.length} color="secondary">
               <AiOutlineShoppingCart className="dark:text-white text-xl" />
             </Badge>
           </IconButton>

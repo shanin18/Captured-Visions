@@ -7,16 +7,53 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import LazyLoad from "react-lazy-load";
+import { AuthContext } from "../../Context/AuthProvider";
+import axios from "axios";
+import Swal from "sweetalert2";
+import useMyClasses from "../../Hooks/useMYClasses";
 
 const SingleClass = ({ item }) => {
   const [fold, setFold] = useState(false);
-  const { name, image, instructor, enrolled, availableSeats, price } = item;
+  const { name, image, instructor, enrolled, availableSeats, price, _id } = item;
+  const { user } = useContext(AuthContext);
+  const [refetch] = useMyClasses();
+
 
   const cardStyle = {
     maxWidth: 345,
     backgroundColor: availableSeats == 0 ? " #ff4c48" : "",
+  };
+
+  const handleSelectClass = () => {
+
+    if (user && user.email) {
+      const selectedItem = {
+        name,
+        image,
+        instructor,
+        price,
+        email: user.email,
+      };
+
+      console.log(selectedItem)
+      axios
+        .post("http://localhost:5000/selectedClasses", selectedItem)
+        .then((data) => {
+          if (data.data.insertedId) {
+            refetch()
+            Swal.fire({
+              position: "top",
+              icon: "success",
+              title: "Class has been selected successfully",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        })
+        .catch((err) => console.log(err.message));
+    }
   };
 
   return (
@@ -72,7 +109,14 @@ const SingleClass = ({ item }) => {
               </p>
             </div>
             <div>
-              <Button disabled={availableSeats == 0 && true} variant="contained" style={{fontFamily:"Poppins", background:"#77bef8"}}>Select to Enroll</Button>
+              <Button
+                onClick={handleSelectClass}
+                disabled={availableSeats == 0 && true}
+                variant="contained"
+                style={{ fontFamily: "Poppins", background: "#77bef8" }}
+              >
+                Select to enroll
+              </Button>
             </div>
           </div>
         </CardContent>

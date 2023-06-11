@@ -28,21 +28,34 @@ const SignUp = () => {
 
   const { createUser, updateUser } = useContext(AuthContext);
 
-
   const onSubmit = (data) => {
     createUser(data.email, data.password)
       .then((result) => {
         const user = result.user;
         updateUser(user, data.name, data.photo)
           .then(() => {
-            reset();
-            Swal.fire({
-              position: "top",
-              icon: "success",
-              title: "Account created successfully",
-              showConfirmButton: false,
-              timer: 1500,
-            });
+            const savedUser = { name: data.name, email: data.email };
+
+            fetch("http://localhost:5000/users", {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(savedUser),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                if (data.insertedId) {
+                  reset();
+                  Swal.fire({
+                    position: "top",
+                    icon: "success",
+                    title: "Account created successfully",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                }
+              });
           })
           .catch((err) => console.log(err));
       })

@@ -52,8 +52,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const SelectedClasses = () => {
   const [refetch, myClasses] = useMyClasses();
-
-  const totalPrice = myClasses.reduce((sum, item) => sum + item.price, 0)
+  
+  const totalPrice = myClasses?.reduce((sum, item) => sum + item.price, 0)
 
   const handleClassDelete = (id) => {
     Swal.fire({
@@ -109,7 +109,7 @@ const SelectedClasses = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {myClasses.map((item) => (
+              {myClasses?.map((item) => (
                 <StyledTableRow key={item._id}>
                   <StyledTableCell component="th" scope="row">
                     <img className="w-28 rounded" src={item.image} alt="" />

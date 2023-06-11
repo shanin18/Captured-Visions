@@ -8,7 +8,6 @@ const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_pk);
 const Payment = () => {
   const [, myClasses] = useMyClasses();
   const totalPrice = myClasses?.reduce((sum, item) => sum + item.price, 0);
-  console.log(totalPrice);
 
   return (
     <div>

@@ -1,27 +1,30 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Context/AuthProvider";
+import Swal from "sweetalert2";
 
 const CheckoutForm = ({ totalPrice }) => {
   const [cardError, setCardError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
+  const [processing, setProcessing] = useState(false);
+  const [transactionId, setTransactionId] = useState("");
   const stripe = useStripe();
   const elements = useElements();
-
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
+    if (!totalPrice) {
+      return;
+    }
     // Create PaymentIntent as soon as the page loads
     fetch("http://localhost:5000/createPaymentIntent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: { totalPrice },
+      body: JSON.stringify({ totalPrice }),
     })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));
   }, [totalPrice]);
-
-  console.log(totalPrice);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,8 +37,9 @@ const CheckoutForm = ({ totalPrice }) => {
     if (card === null) {
       return;
     }
+
     // Use your card Element with other Stripe.js APIs
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    const { error } = await stripe.createPaymentMethod({
       type: "card",
       card,
     });
@@ -45,6 +49,8 @@ const CheckoutForm = ({ totalPrice }) => {
     } else {
       setCardError("");
     }
+
+    setProcessing(true);
 
     const { paymentIntent, error: confirmError } =
       await stripe.confirmCardPayment(clientSecret, {
@@ -60,6 +66,22 @@ const CheckoutForm = ({ totalPrice }) => {
     if (confirmError) {
       console.log(confirmError);
     }
+
+    setProcessing(false);
+    if (paymentIntent?.status === "succeeded") {
+      setTransactionId(paymentIntent?.id);
+    }
+
+    if(transactionId){
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your work has been saved',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+
   };
 
   return (
@@ -84,7 +106,7 @@ const CheckoutForm = ({ totalPrice }) => {
         <button
           className="border p-2 bg-red-500"
           type="submit"
-          disabled={!stripe || !clientSecret}
+          disabled={!stripe || !clientSecret || processing}
         >
           Pay
         </button>

@@ -36,8 +36,6 @@ const SingleClass = ({ item }) => {
         price,
         email: user.email,
       };
-
-      console.log(selectedItem)
       axios
         .post("http://localhost:5000/selectedClasses", selectedItem)
         .then((data) => {

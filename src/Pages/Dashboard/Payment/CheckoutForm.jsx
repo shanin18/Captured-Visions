@@ -1,10 +1,26 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../../Context/AuthProvider";
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ totalPrice }) => {
   const [cardError, setCardError] = useState("");
+  const [clientSecret, setClientSecret] = useState("");
   const stripe = useStripe();
   const elements = useElements();
+
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/createPaymentIntent", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(totalPrice),
+    })
+      .then((res) => res.json())
+      .then((data) => setClientSecret(data.clientSecret));
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,6 +44,21 @@ const CheckoutForm = () => {
     } else {
       setCardError("");
     }
+
+    const { paymentIntent, error: confirmError } =
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: user?.displayName || "unknown",
+            email: user?.email || "anonymous",
+          },
+        },
+      });
+
+      if(confirmError){
+        console.log(confirmError)
+      }
   };
 
   return (
@@ -52,7 +83,7 @@ const CheckoutForm = () => {
         <button
           className="border p-2 bg-red-500"
           type="submit"
-          disabled={!stripe}
+          disabled={!stripe || !clientSecret}
         >
           Pay
         </button>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import useMyClasses from "../../Hooks/useMYClasses";
 import SectionTitle from "../../components/SectionTitle";
 import {
@@ -16,11 +16,10 @@ import styled from "styled-components";
 import { BsTrash3 } from "react-icons/bs";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useEffect } from "react";
 import BtnContained from "../../components/Buttons/BtnContained";
 import { Link } from "react-router-dom";
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
+const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "black",
     color: "white",
@@ -52,7 +51,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const SelectedClasses = () => {
-  const [totalPrice, setTotalPrice] = useState(0);
   const [refetch, myClasses] = useMyClasses();
 
   const handleClassDelete = (id) => {
@@ -83,13 +81,7 @@ const SelectedClasses = () => {
     });
   };
 
-  useEffect(() => {
-    const totalClassesPrice = myClasses?.reduce(
-      (acc, val) => acc + val.price,
-      0
-    );
-    setTotalPrice(totalClassesPrice);
-  }, []);
+
 
   return (
     <div>
@@ -97,7 +89,7 @@ const SelectedClasses = () => {
       <div>
         <div className="flex items-center justify-end gap-4 mb-5">
           <h3 className="text-2xl dark:text-white font-poppins">
-            Total price: ${totalPrice}
+            Total price: ${}
           </h3>
           <Link to="/dashboard/payment">
             <BtnContained text="Pay"></BtnContained>

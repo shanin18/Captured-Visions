@@ -53,6 +53,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const SelectedClasses = () => {
   const [refetch, myClasses] = useMyClasses();
 
+  const totalPrice = myClasses.reduce((sum, item) => sum + item.price, 0)
+
   const handleClassDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -89,7 +91,7 @@ const SelectedClasses = () => {
       <div>
         <div className="flex items-center justify-end gap-4 mb-5">
           <h3 className="text-2xl dark:text-white font-poppins">
-            Total price: ${}
+            Total price: ${totalPrice}
           </h3>
           <Link to="/dashboard/payment">
             <BtnContained text="Pay"></BtnContained>

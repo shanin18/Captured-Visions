@@ -11,16 +11,17 @@ const CheckoutForm = ({ totalPrice }) => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
+    // Create PaymentIntent as soon as the page loads
     fetch("http://localhost:5000/createPaymentIntent", {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(totalPrice),
+      headers: { "Content-Type": "application/json" },
+      body: { totalPrice },
     })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));
-  }, []);
+  }, [totalPrice]);
+
+  console.log(totalPrice);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,15 +51,15 @@ const CheckoutForm = ({ totalPrice }) => {
         payment_method: {
           card: card,
           billing_details: {
-            name: user?.displayName || "unknown",
-            email: user?.email || "anonymous",
+            name: user?.displayName || "anonymous",
+            email: user?.email || "unknown",
           },
         },
       });
 
-      if(confirmError){
-        console.log(confirmError)
-      }
+    if (confirmError) {
+      console.log(confirmError);
+    }
   };
 
   return (

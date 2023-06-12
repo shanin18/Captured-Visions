@@ -2,28 +2,23 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Context/AuthProvider";
 import Swal from "sweetalert2";
+import axios from "axios";
 
-const CheckoutForm = ({ totalPrice }) => {
+const CheckoutForm = ({ totalPrice, myClasses }) => {
   const [cardError, setCardError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
-  const [transactionId, setTransactionId] = useState("");
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    if (!totalPrice) {
-      return;
+    if (totalPrice > 0) {
+      // Create PaymentIntent as soon as the page loads
+      axios
+        .post("http://localhost:5000/createPaymentIntent", { totalPrice })
+        .then((res) => setClientSecret(res.data.clientSecret));
     }
-    // Create PaymentIntent as soon as the page loads
-    fetch("http://localhost:5000/createPaymentIntent", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ totalPrice }),
-    })
-      .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret));
   }, [totalPrice]);
 
   const handleSubmit = async (e) => {
@@ -66,24 +61,33 @@ const CheckoutForm = ({ totalPrice }) => {
     if (confirmError) {
       console.log(confirmError);
     }
-
     setProcessing(false);
+
     if (paymentIntent?.status === "succeeded") {
-      setTransactionId(paymentIntent?.id);
-    }
+      const payment = {
+        email: user?.email,
+        transactionId: paymentIntent?.id,
+        totalPrice,
+        date:new Date(),
+        quantity: myClasses.length,
+        selectedClasses: myClasses?.map((item) => item._id),
+        allClasses: myClasses?.map((item) => item.classId),
+        selectedClassesNames: myClasses?.map((item) => item.name),
+      };
 
-    if(transactionId){
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Your work has been saved',
-        showConfirmButton: false,
-        timer: 1500
-      })
+      axios.post("http://localhost:5000/payments", payment).then((res) => {
+        if (res.data.insertResult.insertedId) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Payment succeeded",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
     }
-
   };
-
   return (
     <div>
       <form onSubmit={handleSubmit}>

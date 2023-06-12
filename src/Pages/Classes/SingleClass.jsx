@@ -20,7 +20,6 @@ const SingleClass = ({ item }) => {
   const { user } = useContext(AuthContext);
   const [refetch] = useMyClasses();
 
-
   const cardStyle = {
     maxWidth: 345,
     backgroundColor: availableSeats == 0 ? " #ff4c48" : "",
@@ -35,6 +34,7 @@ const SingleClass = ({ item }) => {
         instructor,
         price,
         email: user.email,
+        classId: _id
       };
       axios
         .post("http://localhost:5000/selectedClasses", selectedItem)

@@ -13,7 +13,7 @@ const Payment = () => {
     <div>
       <SectionTitle title="Payment"></SectionTitle>
       <Elements stripe={stripePromise}>
-        <CheckoutForm totalPrice={totalPrice}></CheckoutForm>
+        <CheckoutForm totalPrice={totalPrice} myClasses={myClasses}></CheckoutForm>
       </Elements>
     </div>
   );

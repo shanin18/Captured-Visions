@@ -7,8 +7,9 @@ import SignUp from "../Pages/SignUp/SignUp";
 import Instructors from "../Pages/Instructors/Instructors"
 import Classes from "../Pages/Classes/Classes";
 import Dashboard from "../Layouts/Dashboard";
-import Cart from "../Pages/SelectedClasses/SelectedClasses";
 import Payment from "../Pages/Dashboard/Payment/Payment";
+import EnrolledClasses from "../Pages/Dashboard/EnrolledClasses/EnrolledClasses";
+import SelectedClasses from "../Pages/SelectedClasses/SelectedClasses";
 
 const router = createBrowserRouter([
   {
@@ -44,7 +45,11 @@ const router = createBrowserRouter([
     children:[
       {
         path:"selectedClasses",
-        element:<Cart></Cart>
+        element:<SelectedClasses></SelectedClasses>
+      },
+      {
+        path:"enrolledClasses",
+        element:<EnrolledClasses></EnrolledClasses>
       },
       {
         path:"payment",

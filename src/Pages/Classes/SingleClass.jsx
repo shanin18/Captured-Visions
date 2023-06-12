@@ -12,13 +12,13 @@ import LazyLoad from "react-lazy-load";
 import { AuthContext } from "../../Context/AuthProvider";
 import axios from "axios";
 import Swal from "sweetalert2";
-import useMyClasses from "../../Hooks/useMYClasses";
+import useMySelectedClasses from "../../Hooks/useMySelectedClasses";
 
 const SingleClass = ({ item }) => {
   const [fold, setFold] = useState(false);
   const { name, image, instructor, enrolled, availableSeats, price, _id } = item;
   const { user } = useContext(AuthContext);
-  const [refetch] = useMyClasses();
+  const [refetch] = useMySelectedClasses();
 
   const cardStyle = {
     maxWidth: 345,

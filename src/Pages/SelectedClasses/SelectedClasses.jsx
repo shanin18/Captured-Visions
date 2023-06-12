@@ -1,5 +1,4 @@
 import React from "react";
-import useMyClasses from "../../Hooks/useMYClasses";
 import SectionTitle from "../../components/SectionTitle";
 import {
   IconButton,
@@ -18,6 +17,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import BtnContained from "../../components/Buttons/BtnContained";
 import { Link } from "react-router-dom";
+import useMySelectedClasses from "../../Hooks/useMySelectedClasses";
 
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
@@ -51,9 +51,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const SelectedClasses = () => {
-  const [refetch, myClasses] = useMyClasses();
-  
-  const totalPrice = myClasses?.reduce((sum, item) => sum + item.price, 0)
+  const [refetch, mySelectedClasses] = useMySelectedClasses();
+
+  const totalPrice = mySelectedClasses?.reduce(
+    (sum, item) => sum + item.price,
+    0
+  );
 
   const handleClassDelete = (id) => {
     Swal.fire({
@@ -83,8 +86,6 @@ const SelectedClasses = () => {
     });
   };
 
-
-
   return (
     <div>
       <SectionTitle title="My Selected Classes"></SectionTitle>
@@ -109,7 +110,7 @@ const SelectedClasses = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {myClasses?.map((item) => (
+              {mySelectedClasses?.map((item) => (
                 <StyledTableRow key={item._id}>
                   <StyledTableCell component="th" scope="row">
                     <img className="w-28 rounded" src={item.image} alt="" />

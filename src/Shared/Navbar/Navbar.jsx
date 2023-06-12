@@ -16,7 +16,7 @@ import {
 import { MdLogout } from "react-icons/md";
 import { HiBars3, HiXMark } from "react-icons/hi2";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import useMyClasses from "../../Hooks/useMYClasses";
+import useMySelectedClasses from "../../Hooks/useMySelectedClasses";
 
 const Navbar = () => {
   const [isActive, setIsActive] = useState("");
@@ -25,7 +25,7 @@ const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const location = useLocation();
 
-  const [, myClasses] = useMyClasses()
+  const [, myClasses] = useMySelectedClasses()
 
   useEffect(() => {
     setIsActive(location.pathname.split("/")[1]);

@@ -7,13 +7,12 @@ import slider3 from "../../../assets/Images/slider/slider3.jpg";
 import slider4 from "../../../assets/Images/slider/slider4.jpg";
 import slider5 from "../../../assets/Images/slider/slider5.jpg";
 import BtnContained from "../../../components/Buttons/BtnContained";
-import {Slide } from "react-awesome-reveal";
 
 const Banner = () => {
   return (
     <div>
       <Carousel
-        showArrows={true}
+        showArrows={false}
         autoPlay
         infiniteLoop
         interval={2800}
@@ -23,12 +22,10 @@ const Banner = () => {
           <img src={slider1} alt="banner img" />
           <div className="bg-black absolute inset-0 bg-opacity-50 flex justify-center items-center">
             <div className="w-[600px]">
-                <Slide>
-                  <h2 className="text-white font-poppins text-4xl font-medium">
-                    Want To Learn
-                    <span className="text-[#77bef8]">Photography?</span>
-                  </h2>
-                </Slide>
+              <h2 className="text-white font-poppins text-4xl font-medium">
+                Want To Learn
+                <span className="text-[#77bef8]">Photography?</span>
+              </h2>
               <p className="font-poppins text-white my-5">
                 Captured Vision has what you need to take your photography toy
                 the next level. We offer daily tips, resources and free

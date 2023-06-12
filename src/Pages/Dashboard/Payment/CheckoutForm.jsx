@@ -4,7 +4,7 @@ import { AuthContext } from "../../../Context/AuthProvider";
 import Swal from "sweetalert2";
 import axios from "axios";
 
-const CheckoutForm = ({ totalPrice, myClasses }) => {
+const CheckoutForm = ({ totalPrice, mySelectedClasses }) => {
   const [cardError, setCardError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
@@ -69,10 +69,10 @@ const CheckoutForm = ({ totalPrice, myClasses }) => {
         transactionId: paymentIntent?.id,
         totalPrice,
         date:new Date(),
-        quantity: myClasses.length,
-        selectedClasses: myClasses?.map((item) => item._id),
-        allClasses: myClasses?.map((item) => item.classId),
-        selectedClassesNames: myClasses?.map((item) => item.name),
+        quantity: mySelectedClasses.length,
+        selectedClasses: mySelectedClasses?.map((item) => item._id),
+        allClasses: mySelectedClasses?.map((item) => item.classId),
+        selectedClassesNames: mySelectedClasses?.map((item) => item.name),
       };
 
       axios.post("http://localhost:5000/payments", payment).then((res) => {

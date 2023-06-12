@@ -10,14 +10,13 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { AiOutlineHome, AiOutlineMenu } from "react-icons/ai";
-import { FaUserTie } from "react-icons/fa";
-import { MdOutlinePendingActions } from "react-icons/md";
+import { AiOutlineFileSearch, AiOutlineHome, AiOutlineMenu } from "react-icons/ai";
+import { FaUserTie, FaUsers } from "react-icons/fa";
+import {  MdOutlineAddToQueue, MdOutlinePendingActions } from "react-icons/md";
 import { SiGoogleclassroom } from "react-icons/si";
 import { GiConfirmed } from "react-icons/gi";
 import { Link, Outlet } from "react-router-dom";
 import image from "../assets/Images/logo/logo.png";
-import shadows from "@mui/material/styles/shadows";
 
 const drawerWidth = 260;
 
@@ -32,34 +31,83 @@ const Dashboard = (props) => {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
+  const isAdmin = false;
+  const isInstructor = true;
   const drawer = (
     <div>
       <img src={image} className="w-28 m-3" />
       <Divider />
+
+      {isAdmin ? (
+        <List className="font-poppins">
+          <Link
+            to="/dashboard/manageClasses"
+            className={isActive === "manageClasses" && "text-[#77bef8]"}
+          >
+            <ListItemButton>
+              <SiGoogleclassroom className="mr-10"></SiGoogleclassroom>
+              Manage Classes
+            </ListItemButton>
+          </Link>
+
+          <Link
+            to="/dashboard/manageUsers"
+            className={isActive === "manageUsers" && "text-[#77bef8]"}
+          >
+            <ListItemButton>
+              <FaUsers className="mr-10"></FaUsers>
+              Manage Users
+            </ListItemButton>
+          </Link>
+        </List>
+      ) : isInstructor === true ? (
+        <List className="font-poppins">
+        <Link
+          to="/dashboard/addAClass"
+          className={isActive === "addAClass" && "text-[#77bef8]"}
+        >
+          <ListItemButton>
+            <MdOutlineAddToQueue className="mr-10"></MdOutlineAddToQueue>
+            Add A Class
+          </ListItemButton>
+        </Link>
+
+        <Link
+          to="/dashboard/MyClasses"
+          className={isActive === "MyClasses" && "text-[#77bef8]"}
+        >
+          <ListItemButton>
+            <AiOutlineFileSearch className="mr-10"></AiOutlineFileSearch>
+            My Classes
+          </ListItemButton>
+        </Link>
+      </List>
+      ) : (
+        <List className="font-poppins">
+          <Link
+            to="/dashboard/selectedClasses"
+            className={isActive === "selectedClasses" && "text-[#77bef8]"}
+          >
+            <ListItemButton>
+              <MdOutlinePendingActions className="mr-10"></MdOutlinePendingActions>
+              Selected Classes
+            </ListItemButton>
+          </Link>
+
+          <Link
+            to="/dashboard/enrolledClasses"
+            className={isActive === "enrolledClasses" && "text-[#77bef8]"}
+          >
+            <ListItemButton>
+              <GiConfirmed className="mr-10"></GiConfirmed>
+              Enrolled Classes
+            </ListItemButton>
+          </Link>
+        </List>
+      )}
+      <Divider style={{ marginTop: 20, marginBottom: 20 }} />
+
       <List className="font-poppins">
-        <Link
-          to="/dashboard/selectedClasses"
-          className={isActive === "selectedClasses" && "text-[#77bef8]"}
-        >
-          <ListItemButton>
-            <MdOutlinePendingActions className="mr-10"></MdOutlinePendingActions>
-            Selected Classes
-          </ListItemButton>
-        </Link>
-
-        <Link
-          to="/dashboard/enrolledClasses"
-          className={isActive === "enrolledClasses" && "text-[#77bef8]"}
-        >
-          <ListItemButton>
-            <GiConfirmed className="mr-10"></GiConfirmed>
-            Enrolled Classes
-          </ListItemButton>
-        </Link>
-
-        <Divider style={{ marginTop: 20, marginBottom: 20 }} />
-
         <Link to="/">
           <ListItemButton>
             <AiOutlineHome className="mr-10"></AiOutlineHome>
@@ -80,7 +128,6 @@ const Dashboard = (props) => {
             Classes
           </ListItemButton>
         </Link>
-
       </List>
     </div>
   );

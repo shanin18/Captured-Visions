@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Slide } from "react-awesome-reveal";
 import { AiFillHeart, AiOutlineHeart, AiOutlineUser } from "react-icons/ai";
 import { FaFacebookF, FaTwitter, FaYoutube } from "react-icons/fa";
 import { toast } from "react-toastify";
@@ -16,7 +17,9 @@ const SinglePopularInstructor = ({ popularInstructor }) => {
   }, [fill]);
 
   return (
-    <div data-aos="fade-up" className="overflow-hidden border dark:border-[#77bef8] hover:shadow-md dark:hover:shadow-[#77bef8] rounded-md text-center p-4 ">
+    
+    <Slide>
+      <div className="overflow-hidden border dark:border-[#77bef8] hover:shadow-md dark:hover:shadow-[#77bef8] rounded-md text-center p-4 ">
       <div className="relative">
         <p className="font-poppins text-xs px-3 py-2 rounded bg-[#77bef8] text-white w-fit absolute ">
           POPULAR
@@ -52,6 +55,7 @@ const SinglePopularInstructor = ({ popularInstructor }) => {
         </div>
       </div>
     </div>
+    </Slide>
   );
 };
 

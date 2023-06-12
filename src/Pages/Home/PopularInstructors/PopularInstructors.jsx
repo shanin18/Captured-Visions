@@ -11,7 +11,7 @@ const PopularInstructors = () => {
       .then((data) => setPopularInstructors(data));
   }, []);
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto overflow-hidden">
       <SectionTitle title="Popular Instructors"></SectionTitle>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-7">

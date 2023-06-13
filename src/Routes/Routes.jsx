@@ -9,11 +9,16 @@ import Classes from "../Pages/Classes/Classes";
 import Dashboard from "../Layouts/Dashboard";
 import Payment from "../Pages/Dashboard/Payment/Payment";
 import EnrolledClasses from "../Pages/Dashboard/EnrolledClasses/EnrolledClasses";
-import SelectedClasses from "../Pages/SelectedClasses/SelectedClasses";
 import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
 import ManageClasses from "../Pages/Dashboard/ManageClasses/ManageClasses";
 import AddAClass from "../Pages/Dashboard/AddAClass/AddAClass";
 import MyClasses from "../Pages/Dashboard/MyClasses/MyClasses";
+import EditAClass from "../Pages/Dashboard/EditAClass/EditAClass";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
+import InstructorRoute from "./InstructorRoute";
+import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
+import SelectedClasses from "../Pages/Dashboard/SelectedClasses/SelectedClasses";
 
 const router = createBrowserRouter([
   {
@@ -45,23 +50,51 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <Dashboard></Dashboard>,
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "manageUsers",
-        element: <ManageUsers></ManageUsers>,
+        element: (
+          <AdminRoute>
+            <ManageUsers></ManageUsers>
+          </AdminRoute>
+        ),
       },
       {
         path: "manageClasses",
-        element: <ManageClasses></ManageClasses>,
+        element: (
+          <AdminRoute>
+            <ManageClasses></ManageClasses>
+          </AdminRoute>
+        ),
       },
       {
         path: "addAClass",
-        element: <AddAClass></AddAClass>,
+        element: (
+          <InstructorRoute>
+            <AddAClass></AddAClass>
+          </InstructorRoute>
+        ),
       },
       {
-        path: "MyClasses",
-        element: <MyClasses></MyClasses>,
+        path: "myClasses",
+        element: (
+          <InstructorRoute>
+            <MyClasses></MyClasses>
+          </InstructorRoute>
+        ),
+      },
+      {
+        path: "editAClass/:id",
+        element: (
+          <InstructorRoute>
+            <EditAClass></EditAClass>
+          </InstructorRoute>
+        ),
       },
       {
         path: "selectedClasses",
@@ -72,8 +105,12 @@ const router = createBrowserRouter([
         element: <EnrolledClasses></EnrolledClasses>,
       },
       {
-        path: "payment",
+        path: "payment/:id",
         element: <Payment></Payment>,
+      },
+      {
+        path: "paymentHistory",
+        element: <PaymentHistory></PaymentHistory>,
       },
     ],
   },

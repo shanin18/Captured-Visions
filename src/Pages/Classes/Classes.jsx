@@ -1,9 +1,19 @@
 import SectionTitle from "../../components/SectionTitle";
 import SingleClass from "./SingleClass";
-import useAllClasses from "../../Hooks/useAllClasses";
-
+import useTitle from "../../Hooks/useTitle";
+import { useQuery } from "@tanstack/react-query";
+import { useContext } from "react";
+import { AuthContext } from "../../Context/AuthProvider";
 const Classes = () => {
-  const allClasses = useAllClasses();
+  useTitle("Classes");
+  const { loading } = useContext(AuthContext);
+
+  const { data: allClasses = [] } = useQuery({
+    queryKey: ["allClasses"],
+    enabled: !loading,
+    queryFn: () =>
+      fetch("http://localhost:5000/allClasses").then((res) => res.json()),
+  });
 
   return (
     <div className="container mx-auto py-20">

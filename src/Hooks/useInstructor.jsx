@@ -2,21 +2,21 @@ import { useContext } from "react";
 import { AuthContext } from "../Context/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 
-const useMySelectedClasses = () => {
+const useInstructor = () => {
   const { user, loading } = useContext(AuthContext);
   const token = localStorage.getItem("access-token");
-  const { refetch, data: mySelectedClasses = [] } = useQuery({
-    queryKey: ["myClasses", user?.email],
+  const { data: isInstructor, isLoading: isInstructorLoading } = useQuery({
+    queryKey: ["isInstructor", user?.email],
     enabled: !loading,
     queryFn: () =>
-      fetch(`https://captured-visions-server-shanin18.vercel.app/selectedClasses?email=${user?.email}`, {
+      fetch(`https://captured-visions-server-shanin18.vercel.app/users/instructor/${user?.email}`, {
         headers: {
           authorization: `bearer ${token}`,
         },
       }).then((res) => res.json()),
   });
 
-  return [refetch, mySelectedClasses];
+  return [isInstructor, isInstructorLoading];
 };
 
-export default useMySelectedClasses;
+export default useInstructor;

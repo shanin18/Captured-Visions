@@ -1,8 +1,7 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
@@ -10,13 +9,20 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { AiOutlineFileSearch, AiOutlineHome, AiOutlineMenu } from "react-icons/ai";
+import {
+  AiOutlineFileSearch,
+  AiOutlineHome,
+  AiOutlineMenu,
+} from "react-icons/ai";
 import { FaUserTie, FaUsers } from "react-icons/fa";
-import {  MdOutlineAddToQueue, MdOutlinePendingActions } from "react-icons/md";
+import { MdOutlineAddToQueue, MdOutlinePayment, MdOutlinePendingActions } from "react-icons/md";
 import { SiGoogleclassroom } from "react-icons/si";
+import { BiEdit } from "react-icons/bi";
 import { GiConfirmed } from "react-icons/gi";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import image from "../assets/Images/logo/logo.png";
+import useAdmin from "../Hooks/useAdmin";
+import useInstructor from "../Hooks/useInstructor";
 
 const drawerWidth = 260;
 
@@ -24,6 +30,7 @@ const Dashboard = (props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isActive, setIsActive] = useState("");
+  const location = useLocation();
 
   useEffect(() => {
     setIsActive(location.pathname.split("/")[2]);
@@ -31,14 +38,16 @@ const Dashboard = (props) => {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  const isAdmin = false;
-  const isInstructor = true;
+
+  const [isAdmin] = useAdmin();
+  const [isInstructor] = useInstructor();
+
   const drawer = (
     <div>
       <img src={image} className="w-28 m-3" />
       <Divider />
 
-      {isAdmin ? (
+      {isAdmin?.admin ? (
         <List className="font-poppins">
           <Link
             to="/dashboard/manageClasses"
@@ -60,28 +69,35 @@ const Dashboard = (props) => {
             </ListItemButton>
           </Link>
         </List>
-      ) : isInstructor === true ? (
+      ) : isInstructor?.instructor ? (
         <List className="font-poppins">
-        <Link
-          to="/dashboard/addAClass"
-          className={isActive === "addAClass" && "text-[#77bef8]"}
-        >
-          <ListItemButton>
-            <MdOutlineAddToQueue className="mr-10"></MdOutlineAddToQueue>
-            Add A Class
-          </ListItemButton>
-        </Link>
+          {location.pathname.split("/")[2] == "editAClass" && (
+            <ListItemButton>
+              <BiEdit className="mr-10 text-[#77bef8]"></BiEdit>
+              <span className="text-[#77bef8]">Edit A Class</span>
+            </ListItemButton>
+          )}
 
-        <Link
-          to="/dashboard/MyClasses"
-          className={isActive === "MyClasses" && "text-[#77bef8]"}
-        >
-          <ListItemButton>
-            <AiOutlineFileSearch className="mr-10"></AiOutlineFileSearch>
-            My Classes
-          </ListItemButton>
-        </Link>
-      </List>
+          <Link
+            to="/dashboard/addAClass"
+            className={isActive === "addAClass" && "text-[#77bef8]"}
+          >
+            <ListItemButton>
+              <MdOutlineAddToQueue className="mr-10"></MdOutlineAddToQueue>
+              Add A Class
+            </ListItemButton>
+          </Link>
+
+          <Link
+            to="/dashboard/myClasses"
+            className={isActive === "myClasses" && "text-[#77bef8]"}
+          >
+            <ListItemButton>
+              <AiOutlineFileSearch className="mr-10"></AiOutlineFileSearch>
+              My Classes
+            </ListItemButton>
+          </Link>
+        </List>
       ) : (
         <List className="font-poppins">
           <Link
@@ -101,6 +117,16 @@ const Dashboard = (props) => {
             <ListItemButton>
               <GiConfirmed className="mr-10"></GiConfirmed>
               Enrolled Classes
+            </ListItemButton>
+          </Link>
+
+          <Link
+            to="/dashboard/paymentHistory"
+            className={isActive === "paymentHistory" && "text-[#77bef8]"}
+          >
+            <ListItemButton>
+              <MdOutlinePayment className="mr-10"></MdOutlinePayment>
+              Payment History
             </ListItemButton>
           </Link>
         </List>

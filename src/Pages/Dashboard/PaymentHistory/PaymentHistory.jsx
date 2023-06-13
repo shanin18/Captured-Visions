@@ -1,5 +1,8 @@
 import React, { useContext } from "react";
 import SectionTitle from "../../../components/SectionTitle";
+import { useQuery } from "@tanstack/react-query";
+import { AuthContext } from "../../../Context/AuthProvider";
+import { FcExpand } from "react-icons/fc";
 import {
   Paper,
   Table,
@@ -45,23 +48,24 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const EnrolledClasses = () => {
-  useTitle("Enrolled Classes");
+const PaymentHistory = () => {
+  useTitle("Payment History")
   const paymentsData = usePayments();
 
   return (
     <div>
-      <SectionTitle title="My Enrolled Classes"></SectionTitle>
+      <SectionTitle title="Payment History"></SectionTitle>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell>Date</StyledTableCell>
               <StyledTableCell>Time</StyledTableCell>
+              <StyledTableCell>Amount</StyledTableCell>
+              <StyledTableCell>Status</StyledTableCell>
               <StyledTableCell>Email</StyledTableCell>
-              <StyledTableCell>Quantity</StyledTableCell>
-              <StyledTableCell>Total Price</StyledTableCell>
-              <StyledTableCell>Classes Names</StyledTableCell>
+              <StyledTableCell>Transaction Id</StyledTableCell>
+              <StyledTableCell>Items</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -78,9 +82,10 @@ const EnrolledClasses = () => {
                     hour12: true,
                   })}
                 </StyledTableCell>
-                <StyledTableCell>{item.email}</StyledTableCell>
-                <StyledTableCell>{item.quantity}</StyledTableCell>
                 <StyledTableCell>${item.price}</StyledTableCell>
+                <StyledTableCell>{item.status}</StyledTableCell>
+                <StyledTableCell>{item.email}</StyledTableCell>
+                <StyledTableCell>{item.transactionId}</StyledTableCell>
                 <StyledTableCell>
                   <p>{item.selectedClassName}</p>
                 </StyledTableCell>
@@ -93,4 +98,4 @@ const EnrolledClasses = () => {
   );
 };
 
-export default EnrolledClasses;
+export default PaymentHistory;

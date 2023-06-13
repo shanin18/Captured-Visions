@@ -5,8 +5,10 @@ import PopularInstructors from "../PopularInstructors/PopularInstructors";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import ContactUs from "../ContactUs/ContactUs";
+import useTitle from "../../../Hooks/useTitle";
 
 const Home = () => {
+  useTitle("Home")
   return (
     <div className="space-y-20">
       <Banner></Banner>

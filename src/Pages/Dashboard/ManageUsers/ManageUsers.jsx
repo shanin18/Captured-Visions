@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
 import SectionTitle from "../../../components/SectionTitle";
 
 import {
@@ -14,9 +13,11 @@ import {
   TableRow,
   tableCellClasses,
 } from "@mui/material";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { FaUserShield, FaUserTie } from "react-icons/fa";
 import Swal from "sweetalert2";
+import useTitle from "../../../Hooks/useTitle";
+import { AuthContext } from "../../../Context/AuthProvider";
 
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
@@ -50,19 +51,33 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const ManageUsers = () => {
+  useTitle("Manage Users");
+
+  const token = localStorage.getItem("access-token");
+
   const { refetch, data: users = [] } = useQuery(["users"], async () => {
-    const res = await fetch("http://localhost:5000/users");
+    const res = await fetch(
+      "https://captured-visions-server-shanin18.vercel.app/users",
+      {
+        headers: {
+          authorization: `bearer ${token}`,
+        },
+      }
+    );
     return res.json();
   });
 
   const handleMakeAdmin = (user) => {
-    fetch(`http://localhost:5000/users/admin/${user._id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ role: "admin" }),
-    })
+    fetch(
+      `https://captured-visions-server-shanin18.vercel.app/users/admin/${user._id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ role: "admin" }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
@@ -79,13 +94,16 @@ const ManageUsers = () => {
   };
 
   const handleMakeInstructor = (user) => {
-    fetch(`http://localhost:5000/users/admin/${user._id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ role: "instructor" }),
-    })
+    fetch(
+      `https://captured-visions-server-shanin18.vercel.app/users/instructor/${user._id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ role: "instructor" }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
@@ -103,9 +121,7 @@ const ManageUsers = () => {
 
   return (
     <div>
-      <SectionTitle title="ManageUsers"></SectionTitle>
-      {users.length}
-
+      <SectionTitle title="Manage Users"></SectionTitle>
       <div>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -125,66 +141,68 @@ const ManageUsers = () => {
                   <StyledTableCell>{user.name}</StyledTableCell>
                   <StyledTableCell>{user.email}</StyledTableCell>
                   <StyledTableCell>{user.role}</StyledTableCell>
-                  <StyledTableCell className="space-x-2">
-                    {user.role === "admin" ? (
-                      <Button
-                        disabled
-                        variant="contained"
-                        size="small"
-                        style={{
-                          backgroundColor: "#77bef8",
-                          fontFamily: "poppins",
-                        }}
-                        className="bg-[#77bef8] font-poppins"
-                      >
-                        <FaUserShield className="text-xl mr-2"></FaUserShield>
-                        Make Admin
-                      </Button>
-                    ) : (
-                      <Button
-                        onClick={() => handleMakeAdmin(user)}
-                        variant="contained"
-                        size="small"
-                        style={{
-                          backgroundColor: "#77bef8",
-                          fontFamily: "poppins",
-                        }}
-                        className="bg-[#77bef8] font-poppins"
-                      >
-                        <FaUserShield className="text-xl mr-2"></FaUserShield>
-                        Make Admin
-                      </Button>
-                    )}
+                  <StyledTableCell>
+                    <div className="flex flex-wrap gap-4">
+                      {user.role === "admin" ? (
+                        <Button
+                          disabled
+                          variant="contained"
+                          size="small"
+                          style={{
+                            backgroundColor: "#77bef8",
+                            fontFamily: "poppins",
+                          }}
+                          className="bg-[#77bef8] font-poppins"
+                        >
+                          <FaUserShield className="text-xl mr-2"></FaUserShield>
+                          Make Admin
+                        </Button>
+                      ) : (
+                        <Button
+                          onClick={() => handleMakeAdmin(user)}
+                          variant="contained"
+                          size="small"
+                          style={{
+                            backgroundColor: "#77bef8",
+                            fontFamily: "poppins",
+                          }}
+                          className="bg-[#77bef8] font-poppins"
+                        >
+                          <FaUserShield className="text-xl mr-2"></FaUserShield>
+                          Make Admin
+                        </Button>
+                      )}
 
-                    {user.role === "instructor" ? (
-                      <Button
-                        disabled
-                        variant="contained"
-                        size="small"
-                        style={{
-                          backgroundColor: "#77bef8",
-                          fontFamily: "poppins",
-                        }}
-                        className="bg-[#77bef8] font-poppins"
-                      >
-                        <FaUserTie className="text-xl mr-2"></FaUserTie>
-                        Make Instructor
-                      </Button>
-                    ) : (
-                      <Button
-                        onClick={() => handleMakeInstructor(user)}
-                        variant="contained"
-                        size="small"
-                        style={{
-                          backgroundColor: "#77bef8",
-                          fontFamily: "poppins",
-                        }}
-                        className="bg-[#77bef8] font-poppins"
-                      >
-                        <FaUserTie className="text-xl mr-2"></FaUserTie>
-                        Make Instructor
-                      </Button>
-                    )}
+                      {user.role === "instructor" ? (
+                        <Button
+                          disabled
+                          variant="contained"
+                          size="small"
+                          style={{
+                            backgroundColor: "#77bef8",
+                            fontFamily: "poppins",
+                          }}
+                          className="bg-[#77bef8] font-poppins"
+                        >
+                          <FaUserTie className="text-xl mr-2"></FaUserTie>
+                          Make Instructor
+                        </Button>
+                      ) : (
+                        <Button
+                          onClick={() => handleMakeInstructor(user)}
+                          variant="contained"
+                          size="small"
+                          style={{
+                            backgroundColor: "#77bef8",
+                            fontFamily: "poppins",
+                          }}
+                          className="bg-[#77bef8] font-poppins"
+                        >
+                          <FaUserTie className="text-xl mr-2"></FaUserTie>
+                          Make Instructor
+                        </Button>
+                      )}
+                    </div>
                   </StyledTableCell>
                 </StyledTableRow>
               ))}

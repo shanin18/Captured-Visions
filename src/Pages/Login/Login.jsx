@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoginWithSocials from "../../Shared/LoginWithSocials/LoginWithSocials";
 import { useContext, useState } from "react";
 import {
@@ -10,8 +10,10 @@ import {
 import { BsEnvelopeAt } from "react-icons/bs";
 import { AuthContext } from "../../Context/AuthProvider";
 import Swal from "sweetalert2";
+import useTitle from "../../Hooks/useTitle";
 
 const Login = () => {
+  useTitle("Login");
   const [hidden, setHidden] = useState(false);
   const [error, setError] = useState("");
   const {
@@ -21,11 +23,16 @@ const Login = () => {
     reset,
   } = useForm();
 
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location?.state?.from?.pathname || "/";
+
   const { loginUser } = useContext(AuthContext);
   const onSubmit = (data) => {
     setError("");
     loginUser(data.email, data.password)
       .then((res) => {
+        navigate(from, {replace:true})
         reset();
         Swal.fire({
           position: "top",

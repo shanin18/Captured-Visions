@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import SectionTitle from "../../components/SectionTitle";
 import SingleInstructor from "./SingleInstructor";
-import Spinner from "../../components/Spinner";
-
+import useTitle from "../../Hooks/useTitle";
 const Instructors = () => {
+  useTitle("Instructors");
+
   const [allInstructors, setAllInstructors] = useState([]);
   const [instructorInfo, setInstructorInfo] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/allInstructors")
+    fetch("https://captured-visions-server-shanin18.vercel.app/allInstructors")
       .then((res) => res.json())
       .then((data) => {
         setAllInstructors(data);

@@ -1,9 +1,9 @@
 import React from "react";
-import { RiCameraLensFill } from "react-icons/ri"
+import { RiCameraLensFill } from "react-icons/ri";
 
 const Spinner = () => {
   return (
-    <div>
+    <div className="h-screen flex justify-center items-center">
       <RiCameraLensFill className="text-4xl text-[#77bef8] animate-spin"></RiCameraLensFill>
     </div>
   );

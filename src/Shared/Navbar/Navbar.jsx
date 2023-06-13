@@ -4,19 +4,16 @@ import { Fragment, useContext, useEffect, useState } from "react";
 import DarkMode from "../../components/DarkMode/DarkMode";
 import BtnOutline from "../../components/Buttons/BtnOutline";
 import { AuthContext } from "../../Context/AuthProvider";
-import {
-  Avatar,
-  Badge,
-  Box,
-  IconButton,
-  Menu,
-  MenuItem,
-  Tooltip,
-} from "@mui/material";
+import { Avatar, Badge, IconButton, Tooltip } from "@mui/material";
+import { Menu, MenuItem, MenuButton } from "@szhsin/react-menu";
+import "@szhsin/react-menu/dist/index.css";
+import "@szhsin/react-menu/dist/transitions/slide.css";
 import { MdLogout } from "react-icons/md";
 import { HiBars3, HiXMark } from "react-icons/hi2";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import { AiOutlineShoppingCart, AiOutlineUser } from "react-icons/ai";
 import useMySelectedClasses from "../../Hooks/useMySelectedClasses";
+import useAdmin from "../../Hooks/useAdmin";
+import useInstructor from "../../Hooks/useInstructor";
 
 const Navbar = () => {
   const [isActive, setIsActive] = useState("");
@@ -24,20 +21,14 @@ const Navbar = () => {
   const [shadow, setShadow] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const location = useLocation();
+  const [isAdmin] = useAdmin();
+  const [isInstructor] = useInstructor();
 
-  const [, myClasses] = useMySelectedClasses()
+  const [, myClasses] = useMySelectedClasses();
 
   useEffect(() => {
     setIsActive(location.pathname.split("/")[1]);
   }, [location]);
-
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   const { user, logOut } = useContext(AuthContext);
 
@@ -70,90 +61,65 @@ const Navbar = () => {
           Classes
         </Link>
       </li>
-      <li>
-        <Link to="/dashboard/selectedClasses">
-          <IconButton aria-label="cart">
-            <Badge badgeContent={myClasses?.length} color="secondary">
-              <AiOutlineShoppingCart className="dark:text-white text-xl" />
-            </Badge>
-          </IconButton>
-        </Link>
-      </li>
-      <li>
-        {user ? (
-          <Fragment>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                textAlign: "center",
-              }}
-            >
-              {/* <Tooltip title="User name"> */}
-              <IconButton
-                onClick={handleClick}
-                size="small"
-                sx={{ ml: 2 }}
-                aria-controls={open ? "account-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? "true" : undefined}
-              >
+      {user && (
+        <li>
+          <Link
+            to={
+              isAdmin?.admin
+                ? "/dashboard/manageUsers"
+                : isInstructor?.instructor
+                ? "/dashboard/myClasses"
+                : "/dashboard/selectedClasses"
+            }
+          >
+            Dashboard
+          </Link>
+        </li>
+      )}
+      {user && !isAdmin?.admin && !isInstructor?.instructor && (
+        <li>
+          <Link to="/dashboard/selectedClasses">
+            <IconButton aria-label="cart">
+              <Badge badgeContent={myClasses?.length} color="secondary">
+                <AiOutlineShoppingCart className="dark:text-white text-xl" />
+              </Badge>
+            </IconButton>
+          </Link>
+        </li>
+      )}
+      {user ? (
+        <li>
+          <Menu
+            menuButton={
+              <MenuButton>
                 <Tooltip title={user?.displayName}>
                   <Avatar
                     className="dark:border-2 border-green-400"
                     src={user?.photoURL}
                   />
                 </Tooltip>
-              </IconButton>
-              {/* </Tooltip> */}
-            </Box>
-            <Menu
-              anchorEl={anchorEl}
-              id="account-menu"
-              open={open}
-              onClose={handleClose}
-              onClick={handleClose}
-              PaperProps={{
-                elevation: 0,
-                sx: {
-                  overflow: "visible",
-                  mt: 1.5,
-                  bgcolor: "gray",
-                  color: "white",
-                  "& .MuiAvatar-root": {
-                    width: 32,
-                    height: 32,
-                    ml: -0.5,
-                    mr: 1,
-                  },
-                  "&:before": {
-                    content: '""',
-                    display: "block",
-                    position: "absolute",
-                    top: 0,
-                    right: 14,
-                    width: 10,
-                    height: 10,
-                    bgcolor: "gray",
-                    transform: "translateY(-50%) rotate(45deg)",
-                    zIndex: 0,
-                  },
-                },
-              }}
-              transformOrigin={{ horizontal: "right", vertical: "top" }}
-              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-            >
-              <MenuItem className="font-poppins" onClick={handleLogOut}>
-                <MdLogout className="mr-2"></MdLogout> Logout
-              </MenuItem>
-            </Menu>
-          </Fragment>
-        ) : (
-          <Link to="/login">
-            <BtnOutline text="Login"></BtnOutline>
-          </Link>
-        )}
-      </li>
+              </MenuButton>
+            }
+            transition
+          >
+            <MenuItem className="font-poppins text-sm" onClick={handleLogOut}>
+              <MdLogout className="mr-5"></MdLogout> Logout
+            </MenuItem>
+            <MenuItem disabled className="text-sm">
+              <AiOutlineUser className="mr-5"></AiOutlineUser>{" "}
+              {isAdmin?.admin
+                ? "Admin"
+                : isInstructor?.instructor
+                ? "Instructor"
+                : "User"}
+            </MenuItem>
+          </Menu>
+        </li>
+      ) : (
+        <Link to="/login">
+          <BtnOutline text="Login"></BtnOutline>
+        </Link>
+      )}
     </ul>
   );
 
@@ -193,7 +159,7 @@ const Navbar = () => {
           )}
         </div>
         <ul
-          className={`flex flex-col lg:hidden h-[calc(100vh-80px)] z-30 py-10 absolute top-[80px] dark:bg-[#0b111e] bg-white w-[280px] transition-all duration-300 ease-in-out left-0 ${
+          className={`flex flex-col lg:hidden h-screen z-30 py-10 absolute top-[80px] dark:bg-[#0b111e] bg-white w-[280px] transition-all duration-300 ease-in-out left-0 ${
             !fold && " left-[-400px]"
           } items-center gap-8 font-poppins dark:text-white`}
         >
@@ -218,89 +184,68 @@ const Navbar = () => {
               Classes
             </Link>
           </li>
-          <li onClick={() => setFold(!fold)}>
-            <Link
-              to="/dashboard"
-              className={isActive === "dashboard" && "text-[#77bef8]"}
-            >
-              Dashboard
-            </Link>
-          </li>
-          <li>
-            {user ? (
-              <Fragment>
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    textAlign: "center",
-                  }}
-                >
-                  {/* <Tooltip title="User name"> */}
-                  <IconButton
-                    onClick={handleClick}
-                    size="small"
-                    sx={{ ml: 2 }}
-                    aria-controls={open ? "account-menu" : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={open ? "true" : undefined}
-                  >
+          {user && (
+            <li>
+              <Link
+                to={
+                  isAdmin?.admin
+                    ? "/dashboard/manageUsers"
+                    : isInstructor?.instructor
+                    ? "/dashboard/myClasses"
+                    : "/dashboard/selectedClasses"
+                }
+              >
+                Dashboard
+              </Link>
+            </li>
+          )}
+          {user && !isAdmin?.admin && !isInstructor?.instructor && (
+            <li>
+              <Link to="/dashboard/selectedClasses">
+                <IconButton aria-label="cart">
+                  <Badge badgeContent={myClasses?.length} color="secondary">
+                    <AiOutlineShoppingCart className="dark:text-white text-xl" />
+                  </Badge>
+                </IconButton>
+              </Link>
+            </li>
+          )}
+          {user ? (
+            <li>
+              <Menu
+                menuButton={
+                  <MenuButton>
                     <Tooltip title={user?.displayName}>
                       <Avatar
                         className="dark:border-2 border-green-400"
                         src={user?.photoURL}
                       />
                     </Tooltip>
-                  </IconButton>
-                  {/* </Tooltip> */}
-                </Box>
-                <Menu
-                  anchorEl={anchorEl}
-                  id="account-menu"
-                  open={open}
-                  onClose={handleClose}
-                  onClick={handleClose}
-                  PaperProps={{
-                    elevation: 0,
-                    sx: {
-                      overflow: "visible",
-                      mt: 1.5,
-                      bgcolor: "gray",
-                      color: "white",
-                      "& .MuiAvatar-root": {
-                        width: 32,
-                        height: 32,
-                        ml: -0.5,
-                        mr: 1,
-                      },
-                      "&:before": {
-                        content: '""',
-                        display: "block",
-                        position: "absolute",
-                        top: 0,
-                        right: 14,
-                        width: 10,
-                        height: 10,
-                        bgcolor: "gray",
-                        transform: "translateY(-50%) rotate(45deg)",
-                        zIndex: 0,
-                      },
-                    },
-                  }}
-                  transformOrigin={{ horizontal: "right", vertical: "top" }}
-                  anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                  </MenuButton>
+                }
+                transition
+              >
+                <MenuItem
+                  className="font-poppins text-sm"
+                  onClick={handleLogOut}
                 >
-                  <MenuItem className="font-poppins" onClick={handleLogOut}>
-                    <MdLogout className="mr-2"></MdLogout> Logout
-                  </MenuItem>
-                </Menu>
-              </Fragment>
-            ) : (
-              <Link to="/login">
-                <BtnOutline text="Login"></BtnOutline>
-              </Link>
-            )}
-          </li>
+                  <MdLogout className="mr-5"></MdLogout> Logout
+                </MenuItem>
+                <MenuItem disabled className="text-sm">
+                  <AiOutlineUser className="mr-5"></AiOutlineUser>{" "}
+                  {isAdmin?.admin
+                    ? "Admin"
+                    : isInstructor?.instructor
+                    ? "Instructor"
+                    : "User"}
+                </MenuItem>
+              </Menu>
+            </li>
+          ) : (
+            <Link to="/login">
+              <BtnOutline text="Login"></BtnOutline>
+            </Link>
+          )}
         </ul>
 
         <div>

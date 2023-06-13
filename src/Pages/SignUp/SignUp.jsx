@@ -9,15 +9,17 @@ import {
 } from "react-icons/ai";
 import { BsEnvelopeAt } from "react-icons/bs";
 import { HiOutlinePhoto } from "react-icons/hi2";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoginWithSocials from "../../Shared/LoginWithSocials/LoginWithSocials";
 import { AuthContext } from "../../Context/AuthProvider";
 import Swal from "sweetalert2";
+import useTitle from "../../Hooks/useTitle";
 
 const SignUp = () => {
+  useTitle("Sign up")
   const [passHidden, setPassHidden] = useState(false);
   const [confPassHidden, setConfPassHidden] = useState(false);
-
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -36,7 +38,7 @@ const SignUp = () => {
           .then(() => {
             const savedUser = { name: data.name, email: data.email };
 
-            fetch("http://localhost:5000/users", {
+            fetch("https://captured-visions-server-shanin18.vercel.app/users", {
               method: "POST",
               headers: {
                 "content-type": "application/json",
@@ -46,6 +48,7 @@ const SignUp = () => {
               .then((res) => res.json())
               .then((data) => {
                 if (data.insertedId) {
+                  navigate("/")
                   reset();
                   Swal.fire({
                     position: "top",

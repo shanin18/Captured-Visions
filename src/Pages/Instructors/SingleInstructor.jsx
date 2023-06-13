@@ -3,8 +3,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import LazyLoad from "react-lazy-load";
 import { RxCross2 } from "react-icons/rx";
-import { Link } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -17,7 +16,8 @@ const style = {
 const SingleInstructor = ({ instructor, handleOpen, instructorInfo }) => {
   const [open, setOpen] = useState(false);
 
-  const { name, image, email, classesTaken, classNamesTaken } = instructorInfo;
+  const { _id, name, image, email, classesTaken, classNamesTaken } =
+    instructorInfo;
 
   const handleClose = () => {
     setOpen(false);
@@ -25,7 +25,7 @@ const SingleInstructor = ({ instructor, handleOpen, instructorInfo }) => {
 
   return (
     <div data-aos="fade-up" className=" overflow-hidden">
-      <div className=" rounded-tl-3xl hover:shadow-lg duration-300 ease-in-out dark:shadow-[#77bef8] rounded-br-3xl dark:border border-[#77bef8] overflow-hidden">
+      <div className="rounded-tl-3xl rounded-br-3xl dark:border border-[#77bef8] overflow-hidden">
         <img
           onClick={() => handleOpen(instructor._id, setOpen)}
           src={instructor.image}
@@ -41,10 +41,7 @@ const SingleInstructor = ({ instructor, handleOpen, instructorInfo }) => {
         aria-describedby="modal-modal-description"
       >
         {/* modal content box */}
-        <Box
-          sx={style}
-          className="bg-[#0b111e] rounded-md md:w-[450px]"
-        >
+        <Box sx={style} className="bg-[#0b111e] rounded-md md:w-[450px]">
           <div className="flex items-center justify-end py-2 px-3">
             <h2 className="font-poppins text-white capitalize flex-1 text-center">
               {name}
@@ -80,12 +77,6 @@ const SingleInstructor = ({ instructor, handleOpen, instructorInfo }) => {
                   ))}
                 </ul>
               </details>
-
-              <Link to="/">
-                <button className="font-poppins text-white text-sm bg-[#77bef8] w-fit px-3 py-1 rounded mt-2">
-                  Show classes
-                </button>
-              </Link>
             </div>
             <div className="w-1/3">
               <LazyLoad>

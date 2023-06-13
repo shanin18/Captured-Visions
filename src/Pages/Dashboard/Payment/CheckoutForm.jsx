@@ -3,23 +3,25 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Context/AuthProvider";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const CheckoutForm = ({ totalPrice, mySelectedClasses }) => {
+const CheckoutForm = ({ price, mySelectedClasses, selectedClass, selectedId }) => {
   const [cardError, setCardError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useContext(AuthContext);
-
+  const navigate = useNavigate();
+  
   useEffect(() => {
-    if (totalPrice > 0) {
+    if (price > 0) {
       // Create PaymentIntent as soon as the page loads
       axios
-        .post("http://localhost:5000/createPaymentIntent", { totalPrice })
+        .post("https://captured-visions-server-shanin18.vercel.app/createPaymentIntent", { price })
         .then((res) => setClientSecret(res.data.clientSecret));
     }
-  }, [totalPrice]);
+  }, [price]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -67,16 +69,18 @@ const CheckoutForm = ({ totalPrice, mySelectedClasses }) => {
       const payment = {
         email: user?.email,
         transactionId: paymentIntent?.id,
-        totalPrice,
-        date:new Date(),
-        quantity: mySelectedClasses.length,
-        selectedClasses: mySelectedClasses?.map((item) => item._id),
+        status: "success",
+        price,
+        date: new Date(),
+        selectedClass: selectedId,
+        quantity:1,
         allClasses: mySelectedClasses?.map((item) => item.classId),
-        selectedClassesNames: mySelectedClasses?.map((item) => item.name),
+        selectedClassName: selectedClass,
       };
 
-      axios.post("http://localhost:5000/payments", payment).then((res) => {
+      axios.post("https://captured-visions-server-shanin18.vercel.app/payments", payment).then((res) => {
         if (res.data.insertResult.insertedId) {
+          navigate("/dashboard/enrolledClasses");
           Swal.fire({
             position: "center",
             icon: "success",
@@ -90,8 +94,12 @@ const CheckoutForm = ({ totalPrice, mySelectedClasses }) => {
   };
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form
+        onSubmit={handleSubmit}
+        className="border max-w-[450px] p-5 rounded font-poppins mx-auto"
+      >
         <CardElement
+          className="border px-4 py-3 rounded-md dark:bg-white"
           options={{
             style: {
               base: {
@@ -108,7 +116,8 @@ const CheckoutForm = ({ totalPrice, mySelectedClasses }) => {
           }}
         />
         <button
-          className="border p-2 bg-red-500"
+          className="bg-[#77bef8] w-full mt-8 py-2 rounded text-white
+          "
           type="submit"
           disabled={!stripe || !clientSecret || processing}
         >

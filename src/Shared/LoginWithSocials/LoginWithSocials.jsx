@@ -17,7 +17,8 @@ const LoginWithSocials = () => {
           name: loggedInUser.displayName,
           email: loggedInUser.email,
         };
-        fetch("http://localhost:5000/users", {
+        navigate(from, { replace: true });
+        fetch("https://captured-visions-server-shanin18.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -27,7 +28,6 @@ const LoginWithSocials = () => {
           .then((res) => res.json())
           .then((data) => {
             if (data.insertedId) {
-              navigate(from, { replace: true });
               Swal.fire({
                 position: "top",
                 icon: "success",

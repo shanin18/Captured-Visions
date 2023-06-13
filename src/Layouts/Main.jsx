@@ -1,8 +1,8 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, ScrollRestoration, useNavigation } from "react-router-dom";
 import Navbar from "../Shared/Navbar/Navbar";
 import Footer from "../Shared/Footer/Footer";
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import AOS from "aos";
+import "aos/dist/aos.css";
 AOS.init();
 
 const Main = () => {
@@ -13,6 +13,7 @@ const Main = () => {
         <Outlet></Outlet>
       </div>
       <Footer></Footer>
+      <ScrollRestoration />
     </div>
   );
 };

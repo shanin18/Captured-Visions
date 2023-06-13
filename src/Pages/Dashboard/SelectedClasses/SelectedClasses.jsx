@@ -1,5 +1,5 @@
 import React from "react";
-import SectionTitle from "../../components/SectionTitle";
+import SectionTitle from "../../../components/SectionTitle";
 import {
   IconButton,
   Paper,
@@ -15,9 +15,10 @@ import styled from "styled-components";
 import { BsTrash3 } from "react-icons/bs";
 import axios from "axios";
 import Swal from "sweetalert2";
-import BtnContained from "../../components/Buttons/BtnContained";
+import BtnContained from "../../../components/Buttons/BtnContained";
 import { Link } from "react-router-dom";
-import useMySelectedClasses from "../../Hooks/useMySelectedClasses";
+import useMySelectedClasses from "../../../Hooks/useMySelectedClasses";
+import useTitle from "../../../Hooks/useTitle";
 
 const StyledTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
@@ -51,9 +52,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const SelectedClasses = () => {
+  useTitle("Selected Classes");
   const [refetch, mySelectedClasses] = useMySelectedClasses();
 
-  const totalPrice = mySelectedClasses?.reduce(
+const totalPrice = mySelectedClasses?.reduce(
     (sum, item) => sum + item.price,
     0
   );
@@ -70,7 +72,9 @@ const SelectedClasses = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:5000/selectedClasses/${id}`)
+          .delete(
+            `https://captured-visions-server-shanin18.vercel.app/selectedClasses/${id}`
+          )
           .then((data) => {
             if (data.data.deletedCount > 0) {
               refetch();
@@ -90,14 +94,13 @@ const SelectedClasses = () => {
     <div>
       <SectionTitle title="My Selected Classes"></SectionTitle>
       <div>
-        <div className="flex items-center justify-end gap-4 mb-5">
-          <h3 className="text-2xl dark:text-white font-poppins">
-            Total price: ${totalPrice}
-          </h3>
-          <Link to="/dashboard/payment">
-            <BtnContained text="Pay"></BtnContained>
-          </Link>
-        </div>
+        {mySelectedClasses.length > 0 && (
+          <div className="flex items-center justify-end gap-4 mb-5">
+            <h3 className="text-2xl dark:text-white font-poppins">
+              Total price: ${totalPrice}
+            </h3>
+          </div>
+        )}
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
@@ -119,12 +122,18 @@ const SelectedClasses = () => {
                   <StyledTableCell>{item.instructor}</StyledTableCell>
                   <StyledTableCell>${item.price}</StyledTableCell>
                   <StyledTableCell>
-                    <IconButton aria-label="delete" size="small">
-                      <BsTrash3
+                    <div className="flex items-center gap-5">
+                      <Link to={`/dashboard/payment/${item._id}`}>
+                        <BtnContained text="Pay"></BtnContained>
+                      </Link>
+                      <IconButton
                         onClick={() => handleClassDelete(item._id)}
-                        className="text-red-600"
-                      ></BsTrash3>
-                    </IconButton>
+                        aria-label="delete"
+                        size="small"
+                      >
+                        <BsTrash3 className="text-red-600"></BsTrash3>
+                      </IconButton>
+                    </div>
                   </StyledTableCell>
                 </StyledTableRow>
               ))}

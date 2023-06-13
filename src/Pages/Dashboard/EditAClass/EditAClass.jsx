@@ -1,13 +1,15 @@
 import React, { useContext } from "react";
-import { useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../../Context/AuthProvider";
+import { useForm } from "react-hook-form";
 import SectionTitle from "../../../components/SectionTitle";
 import axios from "axios";
-import Swal from "sweetalert2";
 import useTitle from "../../../Hooks/useTitle";
+import Swal from "sweetalert2";
 
-const AddAClass = () => {
-  useTitle("Add A Class");
+const EditAClass = () => {
+  useTitle("Edit A Class")
+  const { id } = useParams();
   const { user } = useContext(AuthContext);
   const {
     register,
@@ -15,33 +17,27 @@ const AddAClass = () => {
     reset,
     formState: { errors },
   } = useForm();
+
+  const navigate = useNavigate()
   const onSubmit = (data) => {
-    data.status = "Pending";
-    data.enrolled = 0;
-    data.price = parseFloat(data.price);
-    data.availableSeats = parseFloat(data.availableSeats);
-    axios
-      .post(
-        "https://captured-visions-server-shanin18.vercel.app/allClasses",
-        data
-      )
-      .then((res) => {
-        if (res.data.insertedId) {
-          reset();
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Class added successfully!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        }
-      });
+    axios.put(`https://captured-visions-server-shanin18.vercel.app/myClasses/${id}`, data).then((res) => {
+      if (res.data.modifiedCount > 0) {
+        navigate("/dashboard/myClasses")
+        reset();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Class edited successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
   };
 
   return (
     <div>
-      <SectionTitle title="Add A Class"></SectionTitle>
+      <SectionTitle title="Edit A Class"></SectionTitle>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="border font-poppins flex flex-col gap-5 p-5 md:max-w-[600px] rounded mx-auto"
@@ -107,7 +103,6 @@ const AddAClass = () => {
             </label>
             <input
               className="w-full border rounded px-3 py-2 text-sm mt-1"
-              type="number"
               placeholder="Enter available seats"
               {...register("availableSeats", { required: true })}
             />
@@ -121,7 +116,6 @@ const AddAClass = () => {
             <label className="font-medium dark:text-white">Price</label>
             <input
               className="w-full border rounded px-3 py-2 text-sm mt-1"
-              type="number"
               placeholder="Enter price"
               {...register("price", { required: true })}
             />
@@ -133,10 +127,10 @@ const AddAClass = () => {
           </div>
         </div>
 
-        <input className="py-2 text-white bg-[#77bef8] rounded cursor-pointer" type="submit" />
+        <input className="py-2 text-white bg-[#77bef8] rounded" type="submit" />
       </form>
     </div>
   );
 };
 
-export default AddAClass;
+export default EditAClass;

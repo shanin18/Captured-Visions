@@ -11,14 +11,22 @@ import React, { useContext, useState } from "react";
 import LazyLoad from "react-lazy-load";
 import { AuthContext } from "../../Context/AuthProvider";
 import axios from "axios";
-import Swal from "sweetalert2";
 import useMySelectedClasses from "../../Hooks/useMySelectedClasses";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import useAdmin from "../../Hooks/useAdmin";
+import useInstructor from "../../Hooks/useInstructor";
 
 const SingleClass = ({ item }) => {
   const [fold, setFold] = useState(false);
-  const { name, image, instructor, enrolled, availableSeats, price, _id } = item;
+  const { name, image, instructor, enrolled, availableSeats, price, _id } =
+    item;
   const { user } = useContext(AuthContext);
   const [refetch] = useMySelectedClasses();
+  const [isAdmin] = useAdmin();
+  const [isInstructor] = useInstructor();
+
+  const navigate = useNavigate();
 
   const cardStyle = {
     maxWidth: 345,
@@ -26,7 +34,6 @@ const SingleClass = ({ item }) => {
   };
 
   const handleSelectClass = () => {
-
     if (user && user.email) {
       const selectedItem = {
         name,
@@ -34,23 +41,25 @@ const SingleClass = ({ item }) => {
         instructor,
         price,
         email: user.email,
-        classId: _id
+        classId: _id,
       };
       axios
-        .post("http://localhost:5000/selectedClasses", selectedItem)
+        .post("https://captured-visions-server-shanin18.vercel.app/selectedClasses", selectedItem)
         .then((data) => {
           if (data.data.insertedId) {
-            refetch()
-            Swal.fire({
-              position: "top",
-              icon: "success",
-              title: "Class has been selected successfully",
-              showConfirmButton: false,
-              timer: 1500,
-            });
+            refetch();
           }
         })
         .catch((err) => console.log(err.message));
+    } else {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "Please Log in first to select",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      navigate("/login");
     }
   };
 
@@ -109,7 +118,11 @@ const SingleClass = ({ item }) => {
             <div>
               <Button
                 onClick={handleSelectClass}
-                disabled={availableSeats == 0 && true}
+                disabled={
+                  availableSeats == 0 ||
+                  isAdmin?.admin ||
+                  isInstructor?.instructor
+                }
                 variant="contained"
                 style={{ fontFamily: "Poppins", background: "#77bef8" }}
               >

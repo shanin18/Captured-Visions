@@ -1,4 +1,4 @@
-<h1 align="center">Hi 👋, Welcome to Captured collections</h1>
+<h1 align="center">Hi 👋, Welcome to Captured Visions</h1>
 live site: https://capturedvisions-61b6b.web.app/
 
 Captured Visions is a full-stack photography school website built using MERN technology, with authentication powered by Firebase. Here are five key features of the website:

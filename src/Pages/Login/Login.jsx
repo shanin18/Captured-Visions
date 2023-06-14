@@ -47,7 +47,7 @@ const Login = () => {
 
   return (
     <div div className="container flex mx-auto justify-center pt-24 pb-40">
-      <div className="border md:min-w-[450px] dark:border-none p-10 dark:bg-[#0c0c0c] rounded-xl">
+      <div className="border md:min-w-[450px] dark:border-none p-5 md:p-10 dark:bg-[#0c0c0c] rounded-xl">
         <h2 className="font-poppins text-3xl font-semibold text-center dark:text-white mb-10">
           Login
         </h2>

@@ -1,12 +1,8 @@
 import React from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
-import slider2 from "../../../assets/Images/slider/slider1.jpg";
-import slider1 from "../../../assets/Images/slider/slider2.jpg";
-import slider3 from "../../../assets/Images/slider/slider3.jpg";
-import slider4 from "../../../assets/Images/slider/slider4.jpg";
-import slider5 from "../../../assets/Images/slider/slider5.jpg";
 import BtnContained from "../../../components/Buttons/BtnContained";
+import { Fade } from "react-awesome-reveal";
 
 const Banner = () => {
   return (
@@ -18,13 +14,14 @@ const Banner = () => {
         interval={2800}
         showThumbs={false}
       >
-        <div>
-          <img src={slider1} alt="banner img" />
+        <div className="h-[400px] md:h-[600px] bg-[url('https://i.ibb.co/z43w79b/6.jpg')] bg-cover bg-center">
           <div className="bg-black absolute inset-0 bg-opacity-50 flex justify-center items-center">
-            <div className="w-[600px]">
-              <h2 className="text-white font-poppins text-4xl font-medium">
+            <div className="w-[600px] px-2">
+              <h2 className="text-white font-poppins text-3xl md:text-4xl font-medium flex">
                 Want To Learn
-                <span className="text-[#77bef8]">Photography?</span>
+                <Fade delay={1e3} cascade damping={1e-1}>
+                  <span className="text-[#77bef8] md:ml-2"> Photography?</span>
+                </Fade>
               </h2>
               <p className="font-poppins text-white my-5">
                 Captured Vision has what you need to take your photography toy
@@ -32,82 +29,94 @@ const Banner = () => {
                 tutorials that will help you get the most out your camera and
                 create stunning photos
               </p>
+
               <BtnContained text="Let's Start"></BtnContained>
             </div>
           </div>
         </div>
-
         {/* banner-2 */}
-        <div>
-          <img src={slider2} alt="banner img" />
+        <div className="h-[400px] md:h-[600px] bg-[url('https://i.ibb.co/3r15hMF/8.jpg')] bg-cover bg-center">
           <div className="bg-black absolute inset-0 bg-opacity-50 flex justify-center items-center">
-            <div className="w-[600px]">
-              <h2 className="text-white font-poppins text-4xl font-medium">
+            <div className="w-[600px] px-2">
+              <h2 className="text-white font-poppins text-3xl md:text-4xl font-medium flex">
                 Want To Learn
-                <span className="text-[#77bef8]">Photography?</span>
+                <Fade delay={1e3} cascade damping={1e-1}>
+                  <span className="text-[#77bef8] md:ml-2"> Photography?</span>
+                </Fade>
               </h2>
               <p className="font-poppins text-white my-5">
-                has what you need to take your photography to the next level. We
-                offer daily tips, resources and free tutorials that will help
-                you get the most out your camera and create stunning photos
+                Captured Vision has what you need to take your photography toy
+                the next level. We offer daily tips, resources and free
+                tutorials that will help you get the most out your camera and
+                create stunning photos
               </p>
+
               <BtnContained text="Let's Start"></BtnContained>
             </div>
           </div>
         </div>
 
         {/* banner-3 */}
-        <div>
-          <img src={slider3} alt="banner img" />
+        <div className="h-[400px] md:h-[600px] bg-[url('https://i.ibb.co/m09yLzM/7.jpg')] bg-cover bg-center">
           <div className="bg-black absolute inset-0 bg-opacity-50 flex justify-center items-center">
-            <div className="w-[600px]">
-              <h2 className="text-white font-poppins text-4xl font-medium">
-                Want To Learn{" "}
-                <span className="text-[#77bef8]">Photography?</span>
+            <div className="w-[600px] px-2">
+              <h2 className="text-white font-poppins text-3xl  md:text-4xl font-medium flex">
+                Want To Learn
+                <Fade delay={1e3} cascade damping={1e-1}>
+                  <span className="text-[#77bef8] md:ml-2"> Photography?</span>
+                </Fade>
               </h2>
               <p className="font-poppins text-white my-5">
-                has what you need to take your photography to the next level. We
-                offer daily tips, resources and free tutorials that will help
-                you get the most out your camera and create stunning photos
+                Captured Vision has what you need to take your photography toy
+                the next level. We offer daily tips, resources and free
+                tutorials that will help you get the most out your camera and
+                create stunning photos
               </p>
+
               <BtnContained text="Let's Start"></BtnContained>
             </div>
           </div>
         </div>
 
         {/* banner-4 */}
-        <div>
-          <img src={slider4} alt="banner img" />
+        <div className="h-[400px] md:h-[600px] bg-[url('https://i.ibb.co/R4X9yP7/9.jpg')] bg-cover bg-center">
           <div className="bg-black absolute inset-0 bg-opacity-50 flex justify-center items-center">
-            <div className="w-[600px]">
-              <h2 className="text-white font-poppins text-4xl font-medium">
-                Want To Learn{" "}
-                <span className="text-[#77bef8]">Photography?</span>
+            <div className="w-[600px] px-2">
+              <h2 className="text-white font-poppins text-3xl  md:text-4xl font-medium flex">
+                Want To Learn
+                <Fade delay={1e3} cascade damping={1e-1}>
+                  <span className="text-[#77bef8] md:ml-2"> Photography?</span>
+                </Fade>
               </h2>
               <p className="font-poppins text-white my-5">
-                has what you need to take your photography to the next level. We
-                offer daily tips, resources and free tutorials that will help
-                you get the most out your camera and create stunning photos
+                Captured Vision has what you need to take your photography toy
+                the next level. We offer daily tips, resources and free
+                tutorials that will help you get the most out your camera and
+                create stunning photos
               </p>
+
               <BtnContained text="Let's Start"></BtnContained>
             </div>
           </div>
         </div>
 
         {/* banner-5 */}
-        <div>
-          <img src={slider5} alt="banner img" />
+        <div className="h-[400px] md:h-[600px] bg-[url('https://i.ibb.co/QMZ2cYT/10.jpg')] bg-cover bg-center">
           <div className="bg-black absolute inset-0 bg-opacity-50 flex justify-center items-center">
-            <div className="w-[600px]">
-              <h2 className="text-white font-poppins text-4xl font-medium">
-                Want To Learn{" "}
-                <span className="text-[#77bef8]">Photography?</span>
+            <div className="w-[600px] px-2">
+              <h2 className="text-white font-poppins text-3xl  md:text-4xl font-medium flex">
+                Want To Learn
+                <Fade delay={1e3} cascade damping={1e-1}>
+                  <span className="text-[#77bef8] md:ml-2"> Photography?</span>
+                </Fade>
               </h2>
               <p className="font-poppins text-white my-5">
-                has what you need to take your photography to the next level. We
-                offer daily tips, resources and free tutorials that will help
-                you get the most out your camera and create stunning photos
+                Captured Vision has what you need to take your photography toy
+                the next level. We offer daily tips, resources and free
+                tutorials that will help you get the most out your camera and
+                create stunning photos
               </p>
+
               <BtnContained text="Let's Start"></BtnContained>
             </div>
           </div>

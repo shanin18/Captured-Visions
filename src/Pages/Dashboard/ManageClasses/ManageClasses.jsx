@@ -58,11 +58,18 @@ const ManageClasses = () => {
 
   const { refetch, data: manageAllClasses = [] } = useQuery({
     queryKey: ["manageAllClasses", user?.email],
-    enabled: !loading,
+    enabled: !loading && !!user?.email,
     queryFn: () =>
-      fetch(`https://captured-visions-server-shanin18.vercel.app/manageAllClasses?status=${true}`).then(
-        (res) => res.json()
-      ),
+      fetch(
+        `https://captured-visions-server-shanin18.vercel.app/manageAllClasses?email=${
+          user?.email
+        }&status=${true}`,
+        {
+          headers: {
+            authorization: `bearer ${localStorage.getItem("access-token")}`,
+          },
+        }
+      ).then((res) => res.json()),
   });
 
   const handleClassApproved = (id) => {
@@ -71,6 +78,11 @@ const ManageClasses = () => {
         `https://captured-visions-server-shanin18.vercel.app/manageAllClasses/${id}`,
         {
           status: "Approved",
+        },
+        {
+          headers: {
+            Authorization: `bearer ${localStorage.getItem("access-token")}`,
+          },
         }
       )
       .then((res) => {
@@ -93,6 +105,11 @@ const ManageClasses = () => {
         `https://captured-visions-server-shanin18.vercel.app/manageAllClasses/${id}`,
         {
           status: "Denied",
+        },
+        {
+          headers: {
+            Authorization: `bearer ${localStorage.getItem("access-token")}`,
+          },
         }
       )
       .then((res) => {
@@ -117,15 +134,19 @@ const ManageClasses = () => {
   const handleMessage = (e) => {
     e.preventDefault();
     const message = e.target.message.value;
-    fetch(`https://captured-visions-server-shanin18.vercel.app/allClasses/${classId}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ message }),
-    })
+    fetch(
+      `https://captured-visions-server-shanin18.vercel.app/allClasses/${classId}`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `bearer ${localStorage.getItem("access-token")}`,
+        },
+        body: JSON.stringify({ message }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         if (data.modifiedCount > 0) {
           setOpen(false);
           refetch();

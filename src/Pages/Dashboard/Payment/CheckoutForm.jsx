@@ -5,7 +5,12 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const CheckoutForm = ({ price, mySelectedClasses, selectedClass, selectedId }) => {
+const CheckoutForm = ({
+  price,
+  mySelectedClasses,
+  selectedClass,
+  selectedId,
+}) => {
   const [cardError, setCardError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
@@ -13,12 +18,20 @@ const CheckoutForm = ({ price, mySelectedClasses, selectedClass, selectedId }) =
   const elements = useElements();
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     if (price > 0) {
       // Create PaymentIntent as soon as the page loads
       axios
-        .post("https://captured-visions-server-shanin18.vercel.app/createPaymentIntent", { price })
+        .post(
+          "https://captured-visions-server-shanin18.vercel.app/createPaymentIntent",
+          { price },
+          {
+            headers: {
+              authorization: `bearer ${localStorage.getItem("access-token")}`,
+            },
+          }
+        )
         .then((res) => setClientSecret(res.data.clientSecret));
     }
   }, [price]);
@@ -73,23 +86,33 @@ const CheckoutForm = ({ price, mySelectedClasses, selectedClass, selectedId }) =
         price,
         date: new Date(),
         selectedClass: selectedId,
-        quantity:1,
+        quantity: 1,
         allClasses: mySelectedClasses?.map((item) => item.classId),
         selectedClassName: selectedClass,
       };
 
-      axios.post("https://captured-visions-server-shanin18.vercel.app/payments", payment).then((res) => {
-        if (res.data.insertResult.insertedId) {
-          navigate("/dashboard/enrolledClasses");
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Payment succeeded",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        }
-      });
+      axios
+        .post(
+          "https://captured-visions-server-shanin18.vercel.app/payments",
+          payment,
+          {
+            headers: {
+              Authorization: `bearer ${localStorage.getItem("access-token")}`,
+            },
+          }
+        )
+        .then((res) => {
+          if (res.data.insertResult.insertedId) {
+            navigate("/dashboard/enrolledClasses");
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Payment succeeded",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        });
     }
   };
   return (

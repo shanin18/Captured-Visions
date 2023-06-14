@@ -20,8 +20,8 @@ const Payment = () => {
         <CheckoutForm
           price={item?.price}
           mySelectedClasses={mySelectedClasses}
-          selectedClass= {item.name}
-          selectedId= {item._id}
+          selectedClass= {item?.name}
+          selectedId= {item?._id}
         ></CheckoutForm>
       </Elements>
     </div>

@@ -20,7 +20,11 @@ const EditAClass = () => {
 
   const navigate = useNavigate()
   const onSubmit = (data) => {
-    axios.put(`https://captured-visions-server-shanin18.vercel.app/myClasses/${id}`, data).then((res) => {
+    axios.put(`https://captured-visions-server-shanin18.vercel.app/myClasses/${id}`, data, {
+      headers: {
+        'Authorization': `bearer ${localStorage.getItem("access-token")}`
+      }
+    }).then((res) => {
       if (res.data.modifiedCount > 0) {
         navigate("/dashboard/myClasses")
         reset();

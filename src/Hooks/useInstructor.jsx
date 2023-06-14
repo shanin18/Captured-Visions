@@ -7,7 +7,7 @@ const useInstructor = () => {
   const token = localStorage.getItem("access-token");
   const { data: isInstructor, isLoading: isInstructorLoading } = useQuery({
     queryKey: ["isInstructor", user?.email],
-    enabled: !loading,
+    enabled: !loading && !!user?.email,
     queryFn: () =>
       fetch(`https://captured-visions-server-shanin18.vercel.app/users/instructor/${user?.email}`, {
         headers: {

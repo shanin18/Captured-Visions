@@ -23,7 +23,12 @@ const AddAClass = () => {
     axios
       .post(
         "https://captured-visions-server-shanin18.vercel.app/allClasses",
-        data
+        data,
+        {
+          headers:{
+            Authorization:`bearer ${localStorage.getItem("access-token")}`
+          }
+        }
       )
       .then((res) => {
         if (res.data.insertedId) {

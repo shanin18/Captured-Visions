@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/Images/logo/logo.png";
-import { Fragment, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DarkMode from "../../components/DarkMode/DarkMode";
 import BtnOutline from "../../components/Buttons/BtnOutline";
 import { AuthContext } from "../../Context/AuthProvider";

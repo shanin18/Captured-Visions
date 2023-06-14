@@ -55,7 +55,7 @@ const SelectedClasses = () => {
   useTitle("Selected Classes");
   const [refetch, mySelectedClasses] = useMySelectedClasses();
 
-const totalPrice = mySelectedClasses?.reduce(
+  const totalPrice = mySelectedClasses?.reduce(
     (sum, item) => sum + item.price,
     0
   );
@@ -73,7 +73,12 @@ const totalPrice = mySelectedClasses?.reduce(
       if (result.isConfirmed) {
         axios
           .delete(
-            `https://captured-visions-server-shanin18.vercel.app/selectedClasses/${id}`
+            `https://captured-visions-server-shanin18.vercel.app/selectedClasses/${id}`,
+            {
+              headers: {
+                authorization: `bearer ${localStorage.getItem("access-token")}`,
+              },
+            }
           )
           .then((data) => {
             if (data.data.deletedCount > 0) {

@@ -13,7 +13,7 @@ import { AuthContext } from "../../Context/AuthProvider";
 import axios from "axios";
 import useMySelectedClasses from "../../Hooks/useMySelectedClasses";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useAdmin from "../../Hooks/useAdmin";
 import useInstructor from "../../Hooks/useInstructor";
 
@@ -26,11 +26,15 @@ const SingleClass = ({ item }) => {
   const [isAdmin] = useAdmin();
   const [isInstructor] = useInstructor();
 
+  const location = useLocation()
   const navigate = useNavigate();
 
   const cardStyle = {
     maxWidth: 345,
     backgroundColor: availableSeats == 0 ? " #ff4c48" : "",
+    "@media (min-width: 600px)": {
+      minWidth: 350,
+    },
   };
 
   const handleSelectClass = () => {
@@ -44,7 +48,15 @@ const SingleClass = ({ item }) => {
         classId: _id,
       };
       axios
-        .post("https://captured-visions-server-shanin18.vercel.app/selectedClasses", selectedItem)
+        .post(
+          "https://captured-visions-server-shanin18.vercel.app/selectedClasses",
+          selectedItem,
+          {
+            headers: {
+              authorization: `bearer ${localStorage.getItem("access-token")}`,
+            },
+          }
+        )
         .then((data) => {
           if (data.data.insertedId) {
             refetch();
@@ -59,7 +71,7 @@ const SingleClass = ({ item }) => {
         showConfirmButton: false,
         timer: 1500,
       });
-      navigate("/login");
+      navigate("/login", {state:{from: location}});
     }
   };
 
@@ -84,29 +96,35 @@ const SingleClass = ({ item }) => {
         </LazyLoad>
 
         <CardContent>
-          <div className="flex flex-col justify-between gap-5">
+          <div className="flex flex-col justify-between gap-5 min-h-[182px]">
             <div>
               <div className="mb-3">
-                {!fold ? (
-                  <h3 className="text-xl font-poppins font-medium">
-                    {name.slice(0, 30)}
-                    <button
-                      className="text-sm duration-300"
-                      onClick={() => setFold(!fold)}
-                    >
-                      ...See more
-                    </button>
-                  </h3>
+                {name.length > 30 ? (
+                  <div>
+                    {!fold ? (
+                      <h3 className="text-xl font-poppins font-medium">
+                        {name.substring(0, 30)}...
+                        <button
+                          className="text-sm duration-300"
+                          onClick={() => setFold(!fold)}
+                        >
+                          See More
+                        </button>
+                      </h3>
+                    ) : (
+                      <h3 className="text-xl font-poppins font-medium">
+                        {name}...
+                        <button
+                          className="text-sm duration-300"
+                          onClick={() => setFold(!fold)}
+                        >
+                          See less
+                        </button>
+                      </h3>
+                    )}
+                  </div>
                 ) : (
-                  <h3 className="text-xl font-poppins font-medium">
-                    {name}
-                    <button
-                      className="text-sm duration-300"
-                      onClick={() => setFold(!fold)}
-                    >
-                      ...See less
-                    </button>
-                  </h3>
+                  <h3 className="text-xl font-poppins font-medium">{name}</h3>
                 )}
               </div>
               <p className="font-poppins text-sm">Price: ${price}</p>

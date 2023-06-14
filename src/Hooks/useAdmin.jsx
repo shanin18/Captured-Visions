@@ -7,7 +7,7 @@ const useAdmin = () => {
   const token = localStorage.getItem("access-token");
   const { data: isAdmin, isLoading: isAdminLoading } = useQuery({
     queryKey: ["isAdmin", user?.email],
-    enabled: !loading,
+    enabled: !loading && !!user?.email,
     queryFn: () =>
       fetch(`https://captured-visions-server-shanin18.vercel.app/users/admin/${user?.email}`, {
         headers: {

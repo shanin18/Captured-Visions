@@ -73,7 +73,7 @@ const ManageUsers = () => {
       {
         method: "PATCH",
         headers: {
-          "content-type": "application/json",
+          authorization: `bearer ${localStorage.getItem("access-token")}`,
         },
         body: JSON.stringify({ role: "admin" }),
       }
@@ -95,11 +95,11 @@ const ManageUsers = () => {
 
   const handleMakeInstructor = (user) => {
     fetch(
-      `https://captured-visions-server-shanin18.vercel.app/users/instructor/${user._id}`,
+      `https://captured-visions-server-shanin18.vercel.app/users/admin/${user._id}`,
       {
         method: "PATCH",
         headers: {
-          "content-type": "application/json",
+          authorization: `bearer ${localStorage.getItem("access-token")}`,
         },
         body: JSON.stringify({ role: "instructor" }),
       }

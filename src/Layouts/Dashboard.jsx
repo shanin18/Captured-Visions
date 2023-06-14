@@ -11,11 +11,12 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import {
   AiOutlineFileSearch,
+  AiOutlineHistory,
   AiOutlineHome,
   AiOutlineMenu,
 } from "react-icons/ai";
 import { FaUserTie, FaUsers } from "react-icons/fa";
-import { MdOutlineAddToQueue, MdOutlinePayment, MdOutlinePendingActions } from "react-icons/md";
+import { MdOutlineAddToQueue, MdOutlinePayment, MdOutlinePendingActions, MdPayment } from "react-icons/md";
 import { SiGoogleclassroom } from "react-icons/si";
 import { BiEdit } from "react-icons/bi";
 import { GiConfirmed } from "react-icons/gi";
@@ -120,12 +121,19 @@ const Dashboard = (props) => {
             </ListItemButton>
           </Link>
 
+          {location.pathname.split("/")[2] == "payment" && (
+            <ListItemButton>
+              <MdPayment className="mr-10 text-[#77bef8]"></MdPayment>
+              <span className="text-[#77bef8]">Payment</span>
+            </ListItemButton>
+          )}
+
           <Link
             to="/dashboard/paymentHistory"
             className={isActive === "paymentHistory" && "text-[#77bef8]"}
           >
             <ListItemButton>
-              <MdOutlinePayment className="mr-10"></MdOutlinePayment>
+              <AiOutlineHistory className="mr-10"></AiOutlineHistory>
               Payment History
             </ListItemButton>
           </Link>

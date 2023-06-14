@@ -61,13 +61,10 @@ const ManageClasses = () => {
     enabled: !loading && !!user?.email,
     queryFn: () =>
       fetch(
-        `https://captured-visions-server-shanin18.vercel.app/manageAllClasses?email=${
-          user?.email
-        }&status=${true}`,
-        {
-          headers: {
-            authorization: `bearer ${localStorage.getItem("access-token")}`,
-          },
+        `https://captured-visions-server-shanin18.vercel.app/manageAllClasses?email=${user?.email}&status=${true}`,{
+          headers:{
+            authorization:`bearer ${localStorage.getItem("access-token")}`
+          }
         }
       ).then((res) => res.json()),
   });
@@ -81,8 +78,8 @@ const ManageClasses = () => {
         },
         {
           headers: {
-            Authorization: `bearer ${localStorage.getItem("access-token")}`,
-          },
+            'Authorization': `bearer ${localStorage.getItem("access-token")}`
+          }
         }
       )
       .then((res) => {
@@ -108,8 +105,8 @@ const ManageClasses = () => {
         },
         {
           headers: {
-            Authorization: `bearer ${localStorage.getItem("access-token")}`,
-          },
+            'Authorization': `bearer ${localStorage.getItem("access-token")}`
+          }
         }
       )
       .then((res) => {
@@ -139,14 +136,15 @@ const ManageClasses = () => {
       {
         method: "PATCH",
         headers: {
-          Authorization: `bearer ${localStorage.getItem("access-token")}`,
+          "content-type": "application/json",
+          authorization: `bearer ${localStorage.getItem("access-token")}`,
         },
         body: JSON.stringify({ message }),
       }
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        console.log(data)
         if (data.modifiedCount > 0) {
           setOpen(false);
           refetch();

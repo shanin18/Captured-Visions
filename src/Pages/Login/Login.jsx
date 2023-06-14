@@ -46,13 +46,13 @@ const Login = () => {
   };
 
   return (
-    <div div className="container mx-auto flex justify-center pt-24 pb-40">
-      <div className="border dark:border-none p-10 dark:bg-[#0c0c0c] rounded-xl">
+    <div div className="container flex mx-auto justify-center pt-24 pb-40">
+      <div className="border md:min-w-[450px] dark:border-none p-10 dark:bg-[#0c0c0c] rounded-xl">
         <h2 className="font-poppins text-3xl font-semibold text-center dark:text-white mb-10">
           Login
         </h2>
 
-        <form className="w-[400px] mb-1" onSubmit={handleSubmit(onSubmit)}>
+        <form className="mb-1" onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-5 dark:text-white">
             {/* email field */}
             <div className="flex dark:bg-[#171719] dark:border-[#77bef8] border rounded-md">

@@ -73,6 +73,7 @@ const ManageUsers = () => {
       {
         method: "PATCH",
         headers: {
+          "content-type": "application/json",
           authorization: `bearer ${localStorage.getItem("access-token")}`,
         },
         body: JSON.stringify({ role: "admin" }),
@@ -99,6 +100,7 @@ const ManageUsers = () => {
       {
         method: "PATCH",
         headers: {
+          "content-type": "application/json",
           authorization: `bearer ${localStorage.getItem("access-token")}`,
         },
         body: JSON.stringify({ role: "instructor" }),

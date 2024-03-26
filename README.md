@@ -2,9 +2,8 @@
 
 <!-- TABLE OF CONTENTS -->
 
- Budget App
+# 📗 Table of Contents <a name="about-project"></a>
 
-- [📗 Table of Contents](#-table-of-contents)
 - [📸 captured visions ](#-Captured-Visions-)
   - [🛠 Built With ](#-built-with-)
     - [Tech Stack ](#tech-stack-)

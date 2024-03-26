@@ -1,23 +1,189 @@
-<h1 align="center">Hi 👋, Welcome to Captured Visions</h1>
-live site: https://capturedvisions-61b6b.web.app/
+<a name="readme-top"></a>
 
-Captured Visions is a full-stack photography school website built using MERN technology, with authentication powered by Firebase. Here are five key features of the website:
+<!-- TABLE OF CONTENTS -->
 
-- Course Marketplace: Students can browse through a variety of photography courses available for purchase. They can view detailed information about each course, including the instructor's name, course duration, curriculum, and pricing.
+ Budget App
 
-- Instructor Portal: Registered instructors have access to a dedicated portal where they can add new photography classes. They can provide class descriptions, upload course materials, set the course schedule, and manage enrollments.
+- [📗 Table of Contents](#-table-of-contents)
+- [📸 captured visions ](#-Captured-Visions-)
+  - [🛠 Built With ](#-built-with-)
+    - [Tech Stack ](#tech-stack-)
+    - [Key Features ](#key-features-)
+  - [🚀 Live Demo ](#-live-demo-)
+  - [💻 Getting Started ](#-getting-started-)
+    - [Setup](#setup)
+    - [Install](#install)
+    - [Run tests](#run-tests)
+    - [Deployment](#deployment)
+  - [👥 Authors ](#-authors-)
+  - [🔭 Future Features ](#-future-features-)
+  - [🤝 Contributing ](#-contributing-)
+  - [⭐️ Show your support ](#️-show-your-support-)
+  - [🙏 Acknowledgments ](#-acknowledgments-)
+  - [❓ FAQ ](#-faq-)
 
-- Student Dashboard: Students have their own personalized dashboard, where they can track their enrolled courses, view upcoming class schedules, and access course materials. They can also communicate with instructors and fellow students through discussion forums.
+<!-- PROJECT DESCRIPTION -->
 
-- Seamless Payments: The website integrates with a secure payment gateway, allowing students to make purchases for the photography courses using various payment methods. The payment process is streamlined and ensures a smooth user experience.
+# 📸 Captured Visions <a name="about-project"></a>
 
-- User-friendly Interface: The website employs Material-UI for a clean and intuitive user interface. It offers a visually appealing design, easy navigation, and responsive layouts, providing an enjoyable browsing experience across different devices.
 
-Technology Stack and Packages Used:
+Captured Visions is a MERN-based photography school website with Firebase authentication. It features a Course Marketplace for browsing detailed courses and an Instructor Portal for managing classes.The integration of secure payment gateways ensures smooth transactions, while the Material-UI interface guarantees an intuitive user experience across all devices.
 
-- MERN (MongoDB, Express.js, React, Node.js): The core technology stack used for building the website.
-- Firebase Authentication: Provides secure user authentication and authorization.
-- Axios: Used for making HTTP requests to the server for fetching data.
-- React Query: Enables efficient data management, caching, and fetching in the React application.
-- React Awesome Reveal: Adds animation and transition effects to elements on the website, enhancing the visual appeal.
--Material-UI: A popular React UI framework that offers pre-designed components, theming options, and responsive design capabilities for creating a polished user interface.
+
+
+## 🛠 Built With <a name="built-with"></a>
+
+### Tech Stack <a name="tech-stack"></a>
+
+<details>
+  <summary>Front-end</summary>
+  <ul>
+    <li><a href="https://react.dev/">React</a></li>
+    <li><a href="https://tailwindcss.com/">Tailwind</a></li>
+    <li><a href="https://mui.com/">MUI</a></li>
+  </ul>
+</details>
+<details>
+  <summary>Back-end</summary>
+  <ul>
+    <li><a href="https://www.rubyonrails.org/en/">Express JS</a></li>
+    <li><a href="https://jwt.io/">JWT</a></li>
+  </ul>
+</details>
+<details>
+  <summary>Authentication</summary>
+  <ul>
+    <li><a href="https://firebase.google.com/">Firebase</a></li>
+  </ul>
+</details>
+
+<details>
+<summary>Database</summary>
+  <ul>
+    <li><a href="https://www.mongodb.com/">MongoDB</a></li>
+  </ul>
+</details>
+
+<!-- Features -->
+
+### Key Features <a name="key-features"></a>
+
+
+- **Dark Mode**
+- **Sign up and log in pages**
+- **Course Marketplace**
+- **Instructor Portal**
+- **Student Dashboard**
+- **Instructor Dashboard**
+- **Admin Panel**
+- **User-friendly Interface**
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## 🚀 Live Demo <a name="live-demo"></a>
+- <a href="https://capturedvisions-61b6b.web.app/">Live Demo</a>
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- GETTING STARTED -->
+
+## 💻 Getting Started <a name="getting-started"></a>
+
+To get a local copy up and running, follow these steps.
+
+
+### Setup
+
+Clone this repository to your desired folder:
+
+
+```sh
+  cd my-folder
+  git clone https://github.com/shanin18/Captured-Visions-client.git
+```
+
+
+### Install
+
+Install this project with:
+
+
+```sh
+  cd captured-visions
+  npm install
+```
+
+
+### Run tests
+
+To run tests, run the following command:
+
+```sh
+  rspec spec
+```
+
+
+### Deployment
+
+You can deploy this project using:
+
+
+ <a href="https://www.netlify.com/">Netlify</a>
+  
+  by following the docs instructions
+
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+## 👥 Authors <a name="authors"></a>
+
+👤 **Syed Shamim Hosan**
+
+- GitHub: [@githubhandle](https://github.com/shanin18)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/syed-shamim-hosan/)
+- Portfolio: [@githubhandle](https://jovial-dieffenbachia-a9caa5.netlify.app/)
+
+## 🔭 Future Features <a name="future-features"></a>
+
+- **Will add some more section on home page**
+- **will add more amazing features**
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+## 🤝 Contributing <a name="contributing"></a>
+
+Contributions, issues, and feature requests are welcome!
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+## ⭐️ Show your support <a name="support"></a>
+
+Please ⭐️ this repository if you found the project useful.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+## 🙏 Acknowledgments <a name="acknowledgements"></a>
+
+I would like to thank Programming Hero for this amazing concept.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+## ❓ FAQ <a name="faq"></a>
+
+> Add at least 2 questions new developers would ask when they decide to use your project.
+
+- **How can I customize the course listings in the Course Marketplace to suit my photography school's specific offerings and branding?**
+
+  - To customize course listings, you can easily integrate your photography school's branding elements such as logos, colors, and fonts into the UI. Additionally, the platform allows you to add, edit, or remove courses through an intuitive admin interface, ensuring flexibility in tailoring the listings to match your school's curriculum and requirements.
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+

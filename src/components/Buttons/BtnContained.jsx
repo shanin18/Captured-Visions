@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import React from "react";
 
-const BtnContained = ({ text}) => {
+const BtnContained = ({ text }) => {
   const contained = {
     backgroundColor: "#77bef8",
     fontFamily: "poppins",
@@ -11,9 +11,11 @@ const BtnContained = ({ text}) => {
   };
   return (
     <div>
-      <Button variant="contained" style={contained}>
-        {text}
-      </Button>
+      <a href="/classes">
+        <Button variant="contained" style={contained}>
+          {text}
+        </Button>
+      </a>
     </div>
   );
 };
